@@ -30,7 +30,8 @@
   3. Enable kernel i2C module `sudo nano /etc/modules` and add `i2c-dev` to the end
   4. install additional packages, `sudo apt-get update` `sudo apt-get install i2c-tools`, `sudo apt-get install python-smbus`
   5. add pi user to i2c group `sudo adduser pi i2c`
-  6 test with command `i2cdetect -y 0`, if that does not work try `i2cdetect -y 1`
+  6. change baud to 1000-3000, start low and work up. `sudo modprobe i2c_bcm2708 baudrate=1000`
+  7. test with command `i2cdetect -y 0`, if that does not work try `i2cdetect -y 1`
 
 ## Link to git for CHIRP sensor
 [chirp-graphite](https://github.com/JasperWallace/chirp-graphite)
