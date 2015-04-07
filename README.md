@@ -24,4 +24,13 @@
   11. Start web server to test `npm start`
   12. Browse to: [http://localhost:3000](http://localhost:3000)
 2. [Tutorial to setup restful API](http://cwbuecheler.com/web/tutorials/2014/restful-web-app-node-express-mongodb/)
+3. Enable I2C on the pi.
+  1. remove i2c from blacklist 'sudo nano /etc/modprobe.d/raspi-blacklist.conf'
+  2. comment out the 'blacklist i2c-bcm2708' line to '#blacklist i2c-bcm2708'
+  3. Enable kernel i2C module 'sudo nano /etc/modules' and add 'i2c-dev' to the end
+  4. install additional packages, 'sudo apt-get update' 'sudo apt-get install i2c-tools', 'sudo apt-get install python-smbus'
+  5. add pi user to i2c group 'sudo adduser pi i2c'
+  6 test with command 'i2cdetect -y 0', if that does not work try 'i2cdetect -y 1'
 
+## Link to git for CHIRP sensor
+[chirp-graphite](https://github.com/JasperWallace/chirp-graphite)
