@@ -2,4 +2,30 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  p Welcome to Need based sprinkler system.
+
+  #wrapper
+    #sensorInfo
+        h2 Sensor Info
+        p
+            strong Address:
+            |  <span id='sensorInfoAddress'></span>
+            br
+            strong TurnOn:
+            |  <span id='sensorInfoTurnOn'></span>
+            br
+            strong TurnOff:
+            |  <span id='sensorInfoTurnOff'></span>
+    // /Sensor Info
+
+    h2 Sensor List
+    #sensorList
+      table
+        thread
+          th Address
+          th TurnOn
+          th TurnOff
+          th Delete?
+        tbody
+      // /Sensor List
+    // / Wrapper
