@@ -23,4 +23,15 @@ router.post('/addsensor', function(req,res) {
     });
 });
 
+/*
+ * DELETE sensor
+ */
+router.delete('/deletesensor/:id', function(req, res) {
+    var db = req.db;
+    var sensorToDelete = req.params.id;
+    db.collection('sensorlist').removeById(sensorToDelete, function(err, result) {
+        res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
+    });
+});
+
 module.exports = router;

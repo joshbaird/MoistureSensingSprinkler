@@ -13,6 +13,8 @@ $(document).ready(function() {
     // Add Sensor button click
     $('#btnAddSensor').on('click', addSensor);
 
+    // Delete Sensor
+    $('#sensorList table tbody').on('click', 'td a.linkdeletesensor', deleteSensor);
 });
 
 // Functons
@@ -95,4 +97,43 @@ function addSensor(event) {
         alert('Please fill in all fields.');
         return false;
     }
+};
+
+// Delete Sensor
+function deleteSensor(event) {
+
+    event.preventDefault();
+
+    // Pop up a confirmation dialog
+    var confirmation = confirm('Are you sure you want to delete this sensor?');
+
+    // Check and make sure the user confirmed
+    if (confirmation === true) {
+
+        // If they did, do our delete
+        $.ajax({
+            type: 'DELETE',
+            url: '/sensors/deletesensor/' + $(this).attr('rel')
+        }).done(function( response ) {
+
+            // Check for a successful (blank) response
+            if (response.msg === '') {
+            }
+            else {
+                alert('Error: ' + response.msg);
+            }
+
+            // Update the table
+            populateTable();
+
+        });
+
+    }
+    else {
+
+        // If they said no to the confirm, do nothing
+        return false;
+
+    }
+
 };
