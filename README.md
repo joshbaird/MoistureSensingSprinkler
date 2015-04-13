@@ -2,14 +2,13 @@
 ## Steps to setup Web
 1. [Tutorial to setup web interface](http://cwbuecheler.com/web/tutorials/2013/node-express-mongo/).
   1. Install node `sudo apt-get install nodejs`
-  2. Install express `npm install -g express`
-  3. Install global generator `npm install -g express-generator`
-  4. Make directory for project `mkdir node`
-  5. CD into new directory `cd node`
-  6. Create express project `express nodemoistureserver`
-  7. CD into new project `cd nodemoistureserver`
-  7. Edit node dependencies `vi package.json`
-  8. Add mongodb and monk dependencies `"dependencies": { "express": "~4.0.0",
+  2. Install express `sudo npm install -g express`
+  3. Install global generator `sudo npm install -g express-generator`
+  4. Clone repo `git clone https://github.com/joshbaird/MoistureSensingSprinkler.git` 
+  5. Change directory to clone repo `cd MoistureSensingSprinkler`
+  6. Change directory to nodemoistureserver project folder `cd nodemoistureserver`
+  7. Verify node dependencies `vi package.json`
+  8. Verify mongodb and monk dependencies `"dependencies": { "express": "~4.0.0",
     "serve-favicon": "~2.1.3",
     "morgan": "~1.0.0",
     "cookie-parser": "~1.0.1",
