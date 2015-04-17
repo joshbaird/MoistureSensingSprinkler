@@ -8,17 +8,16 @@ import requests
 exitFlag = False;
 ################# Functions #####################
 # Scan I2C Bus return list of address 0-127
-def scanBus():
+def getSensorAddresses():
+	response = requests.get('http://localhost:3000/sensors/sensorlist');
+	items =  response.json;
+	print items;
 	addresses = []
-	for addr in range(0, 127):
-		chirp = Chirp(1,addr);
-		# call to get version
-		chirp.write(0x07);
-		val = chirp.read();
-		if(val === None):
-			continue;
-		else:
-			addresses.append(addr);
+	for item in items:
+		if('sensorType' in item):
+			if(item['sensorType'] == "i2c"):
+				addresses.append(item);
+	print addresses;
 	return addresses;
 
 # Read Address and POST data to server
@@ -27,12 +26,21 @@ def ReadAddressAndPOST(addr):
 	currentVal = chirp.cap_sense();
 	json = {"address" : addr,
 			"currentVal" : currentVal};
-	requests.post("localhost:3000/sensors/addsensor", data=json);
+	requests.post('http://localhost:3000/sensors/addsensor', data=json);
 
 # check exitflag
 def checkForExit():
 	return exitFlag;
 
 ################# main loop #####################
-
+sensors = getSensorAddresses();
+maxindex = len(sensors);
+index = 0;
 while (checkForExit()):
+	sleep(1);
+	ReadAddressAndPOST(sensors[index]["sensorAddress"]);
+	index+=1;
+	if(index == maxindex):
+		sensors = getSensorAddresses();
+		maxindex = len(sensors);
+		index = 0;
