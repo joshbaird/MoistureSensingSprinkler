@@ -16,12 +16,35 @@ router.get('/sensorlist', function(req,res) {
  */
 router.post('/addsensor', function(req,res) {
     var db = req.db;
-    db.collection('sensorlist').insert(req.body, function(err, result) {
+    var sensor = db.collection('sensorlist').find({"sensorId" : req.params.sensorId});
+    if(sensor.count === 0){
+      db.collection('sensorlist').insert(req.body, function(err, result) {
         res.send(
             (err === null) ? { msg: ''} : {msg: err }
         );
+      });
+    }
+    else{
+      db.collection('sensorlist').updateById(sensor, function(err, result) {
+        res.send(
+            (err === null) ? { msg: ''} : {msg: err }
+        );
+      });
+    }
+});
+
+/*
+ * POST to updateSensor
+ */
+router.post('/updateSensor', function(req,res) {
+    var db = req.db;
+    db.collection('sensorlist').update({"sensorId" : req.body.sensorId } ,req.body, function(err, result) {
+      res.send(
+          (err === null) ? { msg: ''} : {msg: err }
+      );
     });
 });
+
 
 /*
  * DELETE sensor

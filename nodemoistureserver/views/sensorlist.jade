@@ -1,8 +1,0 @@
-extends layout
-
-block content
-  h1.
-    Sensor List
-  ul
-    each sensor, i in sensorlist
-      li= 'address: ' + sensor.address + ", Start Value: " + sensor.turnOn + ", Turn Off Value: " + sensor.turnOff

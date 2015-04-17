@@ -1,9 +1,0 @@
-extends layout
-
-block content
-  h1= title
-  form#formAddUser(name="addsensor",method="post",action="/addsensor")
-        input#inputSensorAddress(type="text", placeholder="address", name="address")
-        input#inputSensorStart(type="text", placeholder="turnOn", name="turnOn")
-        input#inputSensorStop(type="text", placeholder="turnOff", name="turnOff")
-        button#btnSubmit(type="submit") submit
