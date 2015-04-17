@@ -35,3 +35,9 @@
 
 ## Link to git for CHIRP sensor
 [chirp-graphite](https://github.com/JasperWallace/chirp-graphite)
+
+## RUNNING ON A PI
+
+you may need to run some addition commands to install and run on a pi.
+
+1. `sudo apt-get install python-requests`
