@@ -15,22 +15,34 @@ router.get('/sensorlist', function(req,res) {
  * POST to addsensor
  */
 router.post('/addsensor', function(req,res) {
+    console.log("addsensor called with object id: " + req.body["sensorId"]);
     var db = req.db;
-    var sensor = db.collection('sensorlist').find({"sensorId" : req.params.sensorId});
-    if(sensor.count === 0){
-      db.collection('sensorlist').insert(req.body, function(err, result) {
-        res.send(
+    db.collection('sensorlist').find().toArray( function (err, items) {
+      var result = 0;
+      for (i = 0; i < items.length ; i++){
+        if(items[i]["sensorId"] === req.body["sensorId"]){
+          result = 1;
+          break;
+        }
+      }
+      console.log(result);
+      if(result === 1){
+        console.log("sensorId already exists, updating info");
+        db.collection('sensorlist').update({"sensorId" : req.body["sensorId"]}, req.body, function(err, result) {
+          res.send(
             (err === null) ? { msg: ''} : {msg: err }
-        );
-      });
-    }
-    else{
-      db.collection('sensorlist').updateById(sensor, function(err, result) {
-        res.send(
+          );
+        });
+      }
+      else{
+        console.log("new sensorId, adding new sensor");
+        db.collection('sensorlist').insert(req.body, function(err, result) {
+          res.send(
             (err === null) ? { msg: ''} : {msg: err }
-        );
-      });
-    }
+          );
+        });
+      }
+    });
 });
 
 /*
