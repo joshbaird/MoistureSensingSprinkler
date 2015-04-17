@@ -34,4 +34,26 @@ router.delete('/deletesensor/:id', function(req, res) {
     });
 });
 
+/*
+  Generates alphabetical characters for a 'unique' id string. To add characters
+  to the mix of allowed chars, concat or remove characters from the 'eligibleChars'
+  variable.
+*/
+function generateIdChar(){
+  var elegibleChars = "abcdefghijklmnopqrstubwxyz";
+  var range = elegibleChars.length;
+  var num = Math.floor(Math.random() * range);
+  return elegibleChars.charAt(num);
+}
+/*
+  Generates a 'Unique' id of arbitrary length
+*/
+function getId(length){
+  var id = "";
+  for(var i = 0; i < length; i++){
+    id = id + generateIdChar();
+  }
+  return id;
+}
+
 module.exports = router;
