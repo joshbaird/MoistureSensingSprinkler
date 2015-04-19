@@ -14,11 +14,23 @@ def getPortSettings(url):
 
 # Check to turn on relay for all sensors
 def checkSettings(port):
-	if(port["turnOn"] > port["currentVal"] && port["turnOff"] < port["currentVal"]):
-		turnOnRelay(port);
-	else:
-		turnOffRelay(port);
-	return;
+	return checkTimeSettings(port) && checkMoistureSettings(port) && checkTempSettings(port) && checkLightSettings(port) && checkWeatherSettings(port);
+
+def checkTimeSettings(port):
+	return port["turnOnTime"] > Date().now() && port["turnOffMoisture"] < Date().now():
+
+def checkMoistureSettings(port):
+	return port["turnOnMoisture"] > port["moistureHistory"][port["moistureHistory"].length - 1]["value"] && port["turnOffMoisture"] < port["moistureHistory"][port["moistureHistory"].length - 1]["value"];
+
+def checkTempSettings(port):
+	return port["turnOnTemp"] > port["tempHistory"][port["tempHistory"].length - 1]["value"] && port["turnOffTemp"] < port["tempHistory"][port["tempHistory"].length - 1]["value"];
+
+def checkLightSettings(port):
+	return port["turnOnLight"] > port["lightHistory"][port["lightHistory"].length - 1]["value"] && port["turnOffLight"] < port["lightHistory"][port["lightHistory"].length - 1]["value"];
+
+# for now return true. will try and implement later.
+def checkWeatherSettings(port):
+	return True;
 
 # Turn On Relay by PORT
 def turnOnRelay(port):
@@ -44,6 +56,9 @@ def checkForExit():
 while (checkForExit()):
 	values = getPortSettings("localhost:3000/sensors/sensorlist");
 	for value in values:
-		checkSettings(value);
-	delay(10);
+		if (checkSettings(value)):
+			turnOnRelay(value);
+		else:
+			turnOffRelay(value);
+	delay(5);
 	checkForExit();
