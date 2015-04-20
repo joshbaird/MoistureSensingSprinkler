@@ -17,13 +17,15 @@ $(document).ready(function() {
         'timeFormat': 'g:ia'
     });
 
-    $('#basicExample .date').datepicker($.extend({
+    $('.date').datepicker($.extend({
         onSelect: function() {
             var minDate = $(this).datepicker('getDate');
             minDate.setDate(minDate.getDate()+2); //add two days
             $("#to_date").datepicker( "option", "minDate", minDate);
         }
     },datepickersOpt));
+
+
 
     //need to work on part for converting to UTF for mongodb store
 
@@ -33,7 +35,26 @@ $(document).ready(function() {
     var datepair = new Datepair(basicExampleEl);
     
 
-    
+    // $('.clockpicker').clockpicker()
+    //     .find('input').change(function(){
+    //         // TODO: time changed
+    //         console.log(this.value);
+    //     });
+    $('.clockPickerInput').clockpicker({
+        autoclose: true,
+        twelvehour: true,
+        placement: 'bottom',
+        
+        default: 'now'
+        //donetext: 'yep',
+
+    });
+
+    if (something) {
+        // Manual operations (after clockpicker is initialized).
+        $('.clockPickerInput').clockpicker('show') // Or hide, remove ...
+                .clockpicker('toggleView', 'minutes');
+    }
     
 
     // Populate the user table on initial page load

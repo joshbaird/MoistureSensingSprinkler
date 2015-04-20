@@ -4,7 +4,8 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
     link(rel='stylesheet', href='/stylesheets/jquery.timepicker.css')
-    link(rel='stylesheet', href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
+    link(rel='stylesheet', href='/stylesheets/jquery-clockpicker.min.css')
+    link(rel='stylesheet', href='/stylesheets/jquery-ui.min.css')
     script.
         $(document).ready
             alert(hello world)
@@ -12,11 +13,12 @@ html
         )
   body
     block content
-    script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
+    script(src='/javascripts/jquery.min.js')
     script(src='/javascripts/global.js')
     script(src='/javascripts/jquery.timepicker.js')
+    script(src='/javascripts/jquery-clockpicker.min.js')
     script(src='/javascripts/datepair.js')
-    script(src='//code.jquery.com/ui/1.11.4/jquery-ui.js')
+    script(src='/javascripts/jquery-ui.min.js')
 body
  p#message
 

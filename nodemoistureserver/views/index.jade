@@ -39,11 +39,27 @@ block content
             br
             button#btnAddSensor Add Sensor
             p#basicExample
-              br
-              input(id='dateStart', type='text', class='date start')
-              input(id='timeStart', type='text', class='time start')
-              input(id='timeEnd', type='text', class='time end')
-              input(id='dateEnd', type='text', class='date end')
+              
+              input(id='dateStart', type='text', class='date start', style='float: left', placeholder='Start Date')
+              div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
+                input(id='timeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time')
+                span(class='input-group-addon')
+                  span(class="glyphicon glyphicon-time")
+                  .span
+                .span
+              .div
+
+              input(id='dateEnd', type='text', class='date start', style='float: left', placeholder='End Date')
+              div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
+                input(id='timeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time')
+                span(class='input-group-addon')
+                  span(class="glyphicon glyphicon-time")
+                  .span
+                .span
+              .div
+            .p
+              //input(id='timeEnd', type='text', class='time end clockpicker')
+              //input(id='dateEnd', type='text', class='date end')
             br
     // /Add Sensor
     // / Wrapper
