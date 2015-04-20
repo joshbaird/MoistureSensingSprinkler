@@ -3,7 +3,21 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/jquery.timepicker.css')
+    link(rel='stylesheet', href='//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css')
+    script.
+        $(document).ready
+            alert(hello world)
+            //$("#message").html("message set through jquery")
+        )
   body
     block content
     script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js')
     script(src='/javascripts/global.js')
+    script(src='/javascripts/jquery.timepicker.js')
+    script(src='/javascripts/datepair.js')
+    script(src='//code.jquery.com/ui/1.11.4/jquery-ui.js')
+body
+ input#rollButton(type="button", value="Roll")
+ p#message
+
