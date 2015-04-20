@@ -4,6 +4,38 @@ var sensorListData = [];
 // DOM ready
 $(document).ready(function() {
 
+    var datepickersOpt = {
+       // dateFormat: 'dd-mm-yy',
+        minDate   : 0,
+        'format': 'm/d/yyyy',
+        'autoclose': true
+    }
+
+
+    $('#basicExample .time').timepicker({
+        'showDuration': false,
+        'timeFormat': 'g:ia'
+    });
+
+    $('#basicExample .date').datepicker($.extend({
+        onSelect: function() {
+            var minDate = $(this).datepicker('getDate');
+            minDate.setDate(minDate.getDate()+2); //add two days
+            $("#to_date").datepicker( "option", "minDate", minDate);
+        }
+    },datepickersOpt));
+
+    //need to work on part for converting to UTF for mongodb store
+
+
+    // initialize datepair
+    var basicExampleEl = document.getElementById('basicExample');
+    var datepair = new Datepair(basicExampleEl);
+    
+
+    
+    
+
     // Populate the user table on initial page load
     populateTable();
     
