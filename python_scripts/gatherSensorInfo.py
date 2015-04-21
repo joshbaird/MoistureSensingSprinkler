@@ -21,12 +21,15 @@ def getSensorAddresses():
 	return addresses;
 
 # Read Address and POST data to server
-def ReadAddressAndPOST(addr):
+def ReadAddressAndPOST(sensor):
+	addr = sensor["sensorId"];
 	chirp = Chirp(1,addr);
 	currentVal = chirp.cap_sense();
-	json = {"address" : addr,
-			"currentVal" : currentVal};
-	requests.post('http://localhost:3000/sensors/addsensor', data=json);
+	history = sensor["moistureHistory"];
+	history.append({"date" : Date().now(), "value" : currentVal});
+	json = {"sensorId" : addr,
+			"moistureHistory" : history};
+	requests.post('http://localhost:3000/sensors/updatesensor', data=json);
 
 # check exitflag
 def checkForExit():
@@ -38,7 +41,7 @@ maxindex = len(sensors);
 index = 0;
 while (checkForExit()):
 	sleep(1);
-	ReadAddressAndPOST(sensors[index]["sensorAddress"]);
+	ReadAddressAndPOST(sensors[index]);
 	index+=1;
 	if(index == maxindex):
 		sensors = getSensorAddresses();

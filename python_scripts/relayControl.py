@@ -17,7 +17,7 @@ def checkSettings(port):
 	return checkTimeSettings(port) && checkMoistureSettings(port) && checkTempSettings(port) && checkLightSettings(port) && checkWeatherSettings(port);
 
 def checkTimeSettings(port):
-	return port["turnOnTime"] > Date().now() && port["turnOffMoisture"] < Date().now():
+	return port["turnOnTime"] > Date().now() && port["turnOffTime"] < Date().now():
 
 def checkMoistureSettings(port):
 	return port["turnOnMoisture"] > port["moistureHistory"][port["moistureHistory"].length - 1]["value"] && port["turnOffMoisture"] < port["moistureHistory"][port["moistureHistory"].length - 1]["value"];

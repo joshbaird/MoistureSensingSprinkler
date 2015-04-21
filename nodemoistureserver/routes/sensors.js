@@ -48,7 +48,7 @@ router.post('/addsensor', function(req,res) {
 /*
  * POST to updateSensor
  */
-router.post('/updateSensor', function(req,res) {
+router.post('/updatesensor', function(req,res) {
     var db = req.db;
     db.collection('sensorlist').update({"sensorId" : req.body.sensorId } ,req.body, function(err, result) {
       res.send(
