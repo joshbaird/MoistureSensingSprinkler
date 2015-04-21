@@ -50,11 +50,11 @@ $(document).ready(function() {
 
     });
 
-    if (something) {
-        // Manual operations (after clockpicker is initialized).
-        $('.clockPickerInput').clockpicker('show') // Or hide, remove ...
-                .clockpicker('toggleView', 'minutes');
-    }
+    //if (something) {
+    // Manual operations (after clockpicker is initialized).
+    //  $('.clockPickerInput').clockpicker('show') // Or hide, remove ...
+    //        .clockpicker('toggleView', 'minutes');
+    //}
     
 
     // Populate the user table on initial page load
