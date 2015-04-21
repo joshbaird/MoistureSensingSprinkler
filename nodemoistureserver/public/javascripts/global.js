@@ -82,9 +82,9 @@ function populateTable() {
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function(){
             tableContent += '<tr>';
-            tableContent += '<td><a href="#" class="linkshowsensor" rel="' + this.address + '">' + this.address + '</a></td>';
-            tableContent += '<td>' + this.turnOn + '</td>';
-            tableContent += '<td>' + this.turnOff + '</td>';
+            tableContent += '<td><a href="#" class="linkshowsensor" rel="' + this.sensorId + '">' + this.sensorId + '</a></td>';
+            tableContent += '<td>' + this.sensorType + '</td>';
+            tableContent += '<td>' + this.pinId + '</td>';
             tableContent += '<td><a href="#" class="linkdeletesensor" rel="' + this._id + '">delete</a></td>';
             tableContent += '</tr>';
         });
@@ -109,9 +109,25 @@ function showSensorInfo(event) {
     var thisSensorObject = sensorListData[arrayPosition];
 
     //Populate Info Box
-    $('#sensorInfoAddress').text(thisSensorObject.address);
-    $('#sensorInfoTurnOn').text(thisSensorObject.turnOn);
-    $('#sensorInfoTurnOff').text(thisSensorObject.turnOff);
+    $('#sensorInfoId').text(thisSensorObject.sensorId);
+    $('#sensorInfoType').text(thisSensorObject.sensorType);
+    $('#sensorInfoPinId').text(thisSensorObject.pinId);
+
+    $('#sensorInfoTurnOnTime').text(thisSensorObject.turnOnTime);
+    $('#sensorInfoTurnOffTime').text(thisSensorObject.turnOffTime);
+    
+    $('#sensorInfoTurnOnMoisture').text(thisSensorObject.turnOnMoisture);
+    $('#sensorInfoTurnOffMoisture').text(thisSensorObject.turnOffMoisture);
+    $('#sensorInfoMoistureHistory').text(thisSensorObject.moistureHistory);
+
+    $('#sensorInfoTurnOnLight').text(thisSensorObject.turnOnLight);
+    $('#sensorInfoTurnOffLight').text(thisSensorObject.turnOffLight);
+    $('#sensorInfoLightHistory').text(thisSensorObject.lightHistory);
+
+    $('#sensorInfoTurnOnTemp').text(thisSensorObject.turnOnTemp);
+    $('#sensorInfoTurnOffTemp').text(thisSensorObject.turnOffTemp);
+    $('#sensorInfoTempHistory').text(thisSensorObject.tempHistory);
+
 };
 
 
