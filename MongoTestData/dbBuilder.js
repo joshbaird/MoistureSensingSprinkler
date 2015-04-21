@@ -20,7 +20,7 @@ tmpRecord.sensorType = getSensorType(3);
 tmpRecord.pinId = getRandomNumberString(0, 30);  // I think this is the pin for the relay
 tmpRecord.turnOnMoisture = getRandomNumberString(0, 255);
 tmpRecord.turnOffMoisture = getRandomNumberString(0, 255);
-tmpRecord.moistureHistory = generateSensorHistory(10,  // 100 Data points
+tmpRecord.moistureHistory = generateSensorHistory(10,   // 100 Data points
                                                   30,   // On 30 second intervals
                                                   0,    // Low range (8-bit)
                                                   255); // High Range (8-bit)
@@ -70,11 +70,11 @@ function generateSensorHistory(num, offset, low, high){
   variable.
 */
 function generateIdChar(){
-  var elegibleChars = "abcdefghijklmnopqrstubwxyz";
-  //var elegibleChars = "abcd";
-  var range = elegibleChars.length;
+  var eligibleChars = "abcdefghijklmnopqrstubwxyz";
+  //var eligibleChars = "abcd";
+  var range = eligibleChars.length;
   var num = Math.floor(Math.random() * range);
-  return elegibleChars.charAt(num);
+  return eligibleChars.charAt(num);
 }
 function getId(length){
   var id = "";
@@ -90,11 +90,11 @@ function getId(length){
   many sensors of the same type.
 */
 function generateSensorTypeChar(){
-  //var elegibleChars = "abcd";
-  var elegibleChars = "abc";
-  var range = elegibleChars.length;
+  //var eligibleChars = "abcd";
+  var eligibleChars = "abc";
+  var range = eligibleChars.length;
   var num = Math.floor(Math.random() * range);
-  return elegibleChars.charAt(num);
+  return eligibleChars.charAt(num);
 }
 
 /*
