@@ -142,9 +142,22 @@ function addSensor(event) {
     // check errorCount is 0
     if(errorCount === 0) {
         var newSensor = {
-            'address' : $('#addSensor fieldset input#inputAddress').val(),
-            'turnOn' : $('#addSensor fieldset input#inputTurnOn').val(),
-            'turnOff' : $('#addSensor fieldset input#inputTurnOff').val()
+            'sensorId' : $('#addSensor fieldset input#inputSensorId').val(),
+            'sensorType' : $('#addSensor fieldset input#inputSensorType').val(),
+            'pinId' : $('#addSensor fieldset input#inputPinId').val(),
+
+            // add time on and off here
+            //'turnOnTime' : $('#addSensor fieldset input#inputPinId').val(),
+            //'turnOffTime' : $('#addSensor fieldset input#inputPinId').val(),
+
+            'turnOnMoisture' : $('#addSensor fieldset input#inputTurnOnMoisture').val(),
+            'turnOffMoisture' : $('#addSensor fieldset input#inputTurnOffMoisture').val(),
+
+            'turnOnLight' : $('#addSensor fieldset input#inputTurnOnLight').val(),
+            'turnOffLight' : $('#addSensor fieldset input#inputTurnOffLight').val(),
+
+            'turnOnTemp' : $('#addSensor fieldset input#inputTurnOnTemp').val(),
+            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val()
         }
 
         $.ajax({

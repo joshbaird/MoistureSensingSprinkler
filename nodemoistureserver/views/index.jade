@@ -65,12 +65,19 @@ block content
     h2 Add Sensor
     #addSensor
         fieldset
-            input#inputAddress(type='text', placeholder='Address')
+            input#inputSensorId(type='text', placeholder='SensorID')
+            input#inputSensorType(type='text', placeholder='SensorType')
+            input#inputPinId(type='text', placeholder='PinId')
             br
-            input#inputTurnOn(type='text', placeholder='TurnOn')
-            input#inputTurnOff(type='text', placeholder='TurnOff')
+            input#inputTurnOnMoisture(type='text', placeholder='TurnOnMoisture')
+            input#inputTurnOffMoisture(type='text', placeholder='TurnOffMoisture')
             br
-            button#btnAddSensor Add Sensor
+            input#inputTurnOnLight(type='text', placeholder='TurnOnLight')
+            input#inputTurnOffLight(type='text', placeholder='TurnOffLight')
+            br
+            input#inputTurnOnTemp(type='text', placeholder='TurnOnTemp')
+            input#inputTurnOffTemp(type='text', placeholder='TurnOffTemp')
+            br
             p#basicExample
               
               input(id='dateStart', type='text', class='date start', style='float: left', placeholder='Start Date')
@@ -94,5 +101,6 @@ block content
               //input(id='timeEnd', type='text', class='time end clockpicker')
               //input(id='dateEnd', type='text', class='date end')
             br
+            button#btnAddSensor Add Sensor
     // /Add Sensor
     // / Wrapper
