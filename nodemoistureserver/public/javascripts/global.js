@@ -113,8 +113,8 @@ function showSensorInfo(event) {
     $('#sensorInfoType').text(thisSensorObject.sensorType);
     $('#sensorInfoPinId').text(thisSensorObject.pinId);
 
-    $('#sensorInfoTurnOnTime').text(thisSensorObject.turnOnTime);
-    $('#sensorInfoTurnOffTime').text(thisSensorObject.turnOffTime);
+    $('#sensorInfoTurnOnTime').text(new Date(parseInt(thisSensorObject.turnOnTime)));
+    $('#sensorInfoTurnOffTime').text(new Date(parseInt(thisSensorObject.turnOffTime)));
     
     $('#sensorInfoTurnOnMoisture').text(thisSensorObject.turnOnMoisture);
     $('#sensorInfoTurnOffMoisture').text(thisSensorObject.turnOffMoisture);
