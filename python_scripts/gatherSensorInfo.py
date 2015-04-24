@@ -26,14 +26,50 @@ def ReadAddressAndPOST(sensor):
 	addr = sensor["sensorId"];
 	print addr;
 	chirp = Chirp(1,int(addr,16));
-	currentVal = chirp.cap_sense();
+	# read moisture
+	currentValMoisture = chirp.cap_sense();
 	if("moistureHistory" in sensor):
-		history = sensor["moistureHistory"];
+		historyM = sensor["moistureHistory"];
 	else:
-		history = [];
-	history.append({"date" : time.time(), "value" : currentVal});
+		historyM = [];
+	historyM.append({"date" : time.time(), "value" : currentValMoisture});
+
+	#read light
+	currentValLight = chirp.cap_sense();
+	if("lightHistory" in sensor):
+		historyL = sensor["lightHistory"];
+	else:
+		historyL = [];
+	historyL.append({"date" : time.time(), "value" : currentValLight});
+
+	#read temp
+	currentValTemp = chirp.cap_sense();
+	if("tempHistory" in sensor):
+		historyT = sensor["tempHistory"];
+	else:
+		historyT = [];
+	historyT.append({"date" : time.time(), "value" : currentValTemp});
+
+	#update all data fields
 	json = {"sensorId" : addr,
-			"moistureHistory" : history};
+			"sensorType" : sensor["sensorType"],
+            "pinId" : sensor["pinId"],
+
+            "turnOnTime" : sensor["turnOnTime"],
+            "turnOffTime" : sensor["turnOffTime"],
+
+			"turnOnMoisture" : sensor["turnOnMoisture"],
+            "turnOffMoisture" : sensor["turnOffMoisture"],
+			"moistureHistory" : historyM,
+
+			"turnOnLight" : sensor["turnOnLight"],
+            "turnOffLight" : sensor["turnOffLight"],
+			"lightHistory" : historyL,
+
+			"turnOnTemp" : sensor["turnOnTemp"],
+            "turnOffTemp" : sensor["turnOffTemp"],
+			"tempHistory" : historyT
+        	};
 	requests.post('http://localhost:3000/sensors/updatesensor', data=json);
 
 # check exitflag
@@ -46,9 +82,11 @@ maxindex = len(sensors);
 index = 0;
 while (~checkForExit()):
 	sleep(1);
-	ReadAddressAndPOST(sensors[index]);
-	index+=1;
 	if(index >= maxindex):
 		sensors = getSensorAddresses();
 		maxindex = len(sensors);
 		index = 0;
+	else:
+		ReadAddressAndPOST(sensors[index]);
+		index+=1;
+	
