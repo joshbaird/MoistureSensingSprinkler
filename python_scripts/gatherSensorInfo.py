@@ -39,11 +39,11 @@ def checkForExit():
 sensors = getSensorAddresses();
 maxindex = len(sensors);
 index = 0;
-while (checkForExit()):
+while (!checkForExit()):
 	sleep(1);
 	ReadAddressAndPOST(sensors[index]);
 	index+=1;
-	if(index == maxindex):
+	if(index >= maxindex):
 		sensors = getSensorAddresses();
 		maxindex = len(sensors);
 		index = 0;

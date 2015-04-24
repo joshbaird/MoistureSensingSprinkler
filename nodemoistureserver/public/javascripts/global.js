@@ -118,15 +118,24 @@ function showSensorInfo(event) {
     
     $('#sensorInfoTurnOnMoisture').text(thisSensorObject.turnOnMoisture);
     $('#sensorInfoTurnOffMoisture').text(thisSensorObject.turnOffMoisture);
-    $('#sensorInfoMoistureHistory').text(thisSensorObject.moistureHistory);
+    if("moistureHistory" in thisSensorObject)
+        $('#sensorInfoMoistureHistory').text(JSON.stringify(thisSensorObject.moistureHistory));
+    else
+        $('#sensorInfoMoistureHistory').text("");
 
     $('#sensorInfoTurnOnLight').text(thisSensorObject.turnOnLight);
     $('#sensorInfoTurnOffLight').text(thisSensorObject.turnOffLight);
-    $('#sensorInfoLightHistory').text(thisSensorObject.lightHistory);
+    if("lightHistory" in thisSensorObject)
+        $('#sensorInfoLightHistory').text(JSON.stringify(thisSensorObject.lightHistory));
+    else
+        $('#sensorInfoLightHistory').text("");
 
     $('#sensorInfoTurnOnTemp').text(thisSensorObject.turnOnTemp);
     $('#sensorInfoTurnOffTemp').text(thisSensorObject.turnOffTemp);
-    $('#sensorInfoTempHistory').text(thisSensorObject.tempHistory);
+    if("tempHistory" in thisSensorObject)
+        $('#sensorInfoTempHistory').text(JSON.stringify(thisSensorObject.tempHistory));
+    else
+        $('#sensorInfoTempHistory').text("");
 
 };
 
@@ -174,10 +183,7 @@ function addSensor(event) {
             'turnOffLight' : $('#addSensor fieldset input#inputTurnOffLight').val(),
 
             'turnOnTemp' : $('#addSensor fieldset input#inputTurnOnTemp').val(),
-            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val(),
-            
-            'turnOnTime' : startEpoch,
-            'turnOffTime' : endEpoch
+            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val()
         }
 
         $.ajax({

@@ -12,8 +12,8 @@ var fs    = require('fs');
 
 var tmpRecord = {}; // JSON object to fill fields and insert into the collection later
 // Set database location here. (this expects mongoskin)
-var db =  mongo.db("mongodb://localhost:27017/testData", {nativ_parser:true});
-db.bind('testData');  // Bind to the database
+var db =  mongo.db("mongodb://localhost:27017/moisture", {nativ_parser:true});
+db.bind('sensorlist');  // Bind to the database
 
 /*
   This bit is an example to enter in a fake sensor with history for it sensors.
@@ -37,7 +37,7 @@ tmpRecord.turnOnTime  = new Date(2015, 4, 15, 11, 0, 0, 0).getTime().toString();
 tmpRecord.turnOffTime = new Date(2015, 4, 15, 23, 0, 0, 0).getTime().toString(); // Write out epoch time in ms
 
 // Insert the fake record into the database
-db.testData.insert(tmpRecord, function(err, result){
+db.sensorlist.insert(tmpRecord, function(err, result){
   if(err) throw err;
   if(result){
     console.log("Success");
