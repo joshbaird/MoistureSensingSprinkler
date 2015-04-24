@@ -101,10 +101,10 @@ function showSensorInfo(event) {
     event.preventDefault();
 
     // Retrieve Address from link rel attribute
-    var thisSensorAddress = $(this).attr('rel');
+    var thisSensorId = $(this).attr('rel');
 
     // Get Index of object based on id value
-    var arrayPosition = sensorListData.map(function(arrayItem) { return arrayItem.address; }).indexOf(thisSensorAddress);
+    var arrayPosition = sensorListData.map(function(arrayItem) { return arrayItem.sensorId; }).indexOf(thisSensorId);
     // Get our Sensor Object
     var thisSensorObject = sensorListData[arrayPosition];
 
@@ -164,8 +164,8 @@ function addSensor(event) {
             'pinId' : $('#addSensor fieldset input#inputPinId').val(),
 
             // add time on and off here
-            //'turnOnTime' : $('#addSensor fieldset input#inputPinId').val(),
-            //'turnOffTime' : $('#addSensor fieldset input#inputPinId').val(),
+            'turnOnTime' : startEpoch,
+            'turnOffTime' : endEpoch,
 
             'turnOnMoisture' : $('#addSensor fieldset input#inputTurnOnMoisture').val(),
             'turnOffMoisture' : $('#addSensor fieldset input#inputTurnOffMoisture').val(),
