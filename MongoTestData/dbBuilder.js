@@ -11,10 +11,13 @@ var host  = 'localhost';
 var fs    = require('fs');
 
 var tmpRecord = {};
+// Set database location here. (this expects mongoskin)
 var db =  mongo.db("mongodb://localhost:27017/testData", {nativ_parser:true});
 db.bind('testData');  // Bind to the database
 
-// Build up the record
+/*
+  This bit is an example to enter in a fake sensor with history for it sensors.
+*/
 tmpRecord.sensorId = getId(5); // Create a random id of 5 characters
 tmpRecord.sensorType = getSensorType(3);
 tmpRecord.pinId = getRandomNumberString(0, 30);  // I think this is the pin for the relay
@@ -41,6 +44,8 @@ db.testData.insert(tmpRecord, function(err, result){
   }
   db.close(); // CLose the connection
 });
+
+// End exammple
 
 ////////////////////////////////////////////////////////////////////////////////
 // Utility Functions
