@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from chirp import Chirp
+import time
 from time import sleep
 import requests
 
@@ -23,10 +24,14 @@ def getSensorAddresses():
 # Read Address and POST data to server
 def ReadAddressAndPOST(sensor):
 	addr = sensor["sensorId"];
-	chirp = Chirp(1,addr);
+	print addr;
+	chirp = Chirp(1,int(addr,16));
 	currentVal = chirp.cap_sense();
-	history = sensor["moistureHistory"];
-	history.append({"date" : Date().now(), "value" : currentVal});
+	if("moistureHistory" in sensor):
+		history = sensor["moistureHistory"];
+	else:
+		history = [];
+	history.append({"date" : time.time(), "value" : currentVal});
 	json = {"sensorId" : addr,
 			"moistureHistory" : history};
 	requests.post('http://localhost:3000/sensors/updatesensor', data=json);
@@ -39,7 +44,7 @@ def checkForExit():
 sensors = getSensorAddresses();
 maxindex = len(sensors);
 index = 0;
-while (!checkForExit()):
+while (~checkForExit()):
 	sleep(1);
 	ReadAddressAndPOST(sensors[index]);
 	index+=1;
