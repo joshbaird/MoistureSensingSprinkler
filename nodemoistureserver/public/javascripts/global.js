@@ -12,10 +12,10 @@ $(document).ready(function() {
     }
 
 
-    $('#basicExample .time').timepicker({
-        'showDuration': false,
-        'timeFormat': 'g:ia'
-    });
+    // $('#basicExample .time').timepicker({
+    //     'showDuration': false,
+    //     'timeFormat': 'g:ia'
+    // });
 
     $('.date').datepicker($.extend({
         onSelect: function() {
@@ -31,8 +31,8 @@ $(document).ready(function() {
 
 
     // initialize datepair
-    var basicExampleEl = document.getElementById('basicExample');
-    var datepair = new Datepair(basicExampleEl);
+    // var basicExampleEl = document.getElementById('basicExample');
+    // var datepair = new Datepair(basicExampleEl);
     
 
     // $('.clockpicker').clockpicker()
@@ -139,6 +139,23 @@ function addSensor(event) {
         if($(this).val() === '') { errorCount++;}
     });
 
+
+    //To get epoch we take values of two fields '04/23/2015' and 11:45PM and form in to string:
+    //'04/23/2015, 11:45PM'
+    //We let date.js do the rest, aka Date.parse(string) -> datestring
+    //and use the native js function Date(datestring).getTime() to give us epoch
+    startEpoch = new Date(Date.parse($('#addSensor fieldset input#inputDateStart').val() + ", " + $('#addSensor fieldset input#inputTimeStart').val())).getTime();
+    
+    console.log("Start epoch: " + startEpoch);
+    endEpoch = new Date(Date.parse($('#addSensor fieldset input#inputDateEnd').val() + ", " + $('#addSensor fieldset input#inputTimeEnd').val())).getTime();
+    console.log("End epoch: " + endEpoch);
+
+    //some basic error checking is never a bad thing...
+    if( (endEpoch <= startEpoch) || (startEpoch == null) || (endEpoch == null) )
+    {
+        console.log("bad times...");
+    }
+
     // check errorCount is 0
     if(errorCount === 0) {
         var newSensor = {
@@ -157,7 +174,10 @@ function addSensor(event) {
             'turnOffLight' : $('#addSensor fieldset input#inputTurnOffLight').val(),
 
             'turnOnTemp' : $('#addSensor fieldset input#inputTurnOnTemp').val(),
-            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val()
+            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val(),
+            
+            'turnOnTime' : startEpoch,
+            'turnOffTime' : endEpoch
         }
 
         $.ajax({

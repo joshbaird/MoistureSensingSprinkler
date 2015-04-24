@@ -79,25 +79,22 @@ block content
             input#inputTurnOffTemp(type='text', placeholder='TurnOffTemp')
             br
             p#basicExample
-              
-              input(id='dateStart', type='text', class='date start', style='float: left', placeholder='Start Date')
-              div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
-                input(id='timeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time')
-                span(class='input-group-addon')
-                  span(class="glyphicon glyphicon-time")
-                  .span
+            input(id='inputDateStart', type='text', class='date start', style='float: left', placeholder='Start Date')
+            div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
+              input(id='inputTimeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time')
+              span(class='input-group-addon')
+                span(class="glyphicon glyphicon-time")
                 .span
-              .div
-
-              input(id='dateEnd', type='text', class='date start', style='float: left', placeholder='End Date')
-              div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
-                input(id='timeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time')
-                span(class='input-group-addon')
-                  span(class="glyphicon glyphicon-time")
-                  .span
+              .span
+            .div
+            input(id='inputDateEnd', type='text', class='date start', style='float: left', placeholder='End Date')
+            div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
+              input(id='inputTimeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time')
+              span(class='input-group-addon')
+                span(class="glyphicon glyphicon-time")
                 .span
-              .div
-            .p
+              .span
+            .div
               //input(id='timeEnd', type='text', class='time end clockpicker')
               //input(id='dateEnd', type='text', class='date end')
             br
