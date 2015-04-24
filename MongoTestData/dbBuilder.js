@@ -10,7 +10,7 @@ var port  = '';
 var host  = 'localhost';
 var fs    = require('fs');
 
-var tmpRecord = {};
+var tmpRecord = {}; // JSON object to fill fields and insert into the collection later
 // Set database location here. (this expects mongoskin)
 var db =  mongo.db("mongodb://localhost:27017/testData", {nativ_parser:true});
 db.bind('testData');  // Bind to the database
@@ -19,23 +19,24 @@ db.bind('testData');  // Bind to the database
   This bit is an example to enter in a fake sensor with history for it sensors.
 */
 tmpRecord.sensorId = getId(5); // Create a random id of 5 characters
-tmpRecord.sensorType = getSensorType(3);
+tmpRecord.sensorType = getSensorType(3);  // Creates a random string for the type of sensor
 tmpRecord.pinId = getRandomNumberString(0, 30);  // I think this is the pin for the relay
-tmpRecord.turnOnMoisture = getRandomNumberString(0, 255);
-tmpRecord.turnOffMoisture = getRandomNumberString(0, 255);
+tmpRecord.turnOnMoisture = getRandomNumberString(0, 255); // Random value for the threshold 
+tmpRecord.turnOffMoisture = getRandomNumberString(0, 255);// Random value for the threshold 
 tmpRecord.moistureHistory = generateSensorHistory(10,   // 100 Data points
                                                   30,   // On 30 second intervals
                                                   0,    // Low range (8-bit)
                                                   255); // High Range (8-bit)
-tmpRecord.turnOnLight = getRandomNumberString(0, 255);
-tmpRecord.tunOffLight = getRandomNumberString(0, 255);
-tmpRecord.lightHistory = generateSensorHistory(10, 30, 0, 255);
-tmpRecord.turnOnTemp  = getRandomNumberString(0, 255);
-tmpRecord.turnOffTemp = getRandomNumberString(0, 255);
-tmpRecord.tempHistory = generateSensorHistory(10, 30, 0, 255);
-tmpRecord.turnOnTime  = new Date(2015, 4, 15, 11, 0, 0, 0).getTime().toString();
-tmpRecord.turnOffTime = new Date(2015, 4, 15, 23, 0, 0, 0).getTime().toString();
+tmpRecord.turnOnLight = getRandomNumberString(0, 255); // Random value for the threshold 
+tmpRecord.tunOffLight = getRandomNumberString(0, 255); // Random value for the threshold 
+tmpRecord.lightHistory = generateSensorHistory(10, 30, 0, 255); // Random values for fake sensor history
+tmpRecord.turnOnTemp  = getRandomNumberString(0, 255);  // Random value for the threshold 
+tmpRecord.turnOffTemp = getRandomNumberString(0, 255);  // Random value for the threshold 
+tmpRecord.tempHistory = generateSensorHistory(10, 30, 0, 255); // Random values for fake sensor history
+tmpRecord.turnOnTime  = new Date(2015, 4, 15, 11, 0, 0, 0).getTime().toString(); // Write out epoch time in ms
+tmpRecord.turnOffTime = new Date(2015, 4, 15, 23, 0, 0, 0).getTime().toString(); // Write out epoch time in ms
 
+// Insert the fake record into the database
 db.testData.insert(tmpRecord, function(err, result){
   if(err) throw err;
   if(result){
