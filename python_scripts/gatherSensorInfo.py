@@ -4,6 +4,7 @@ from chirp import Chirp
 import time
 from time import sleep
 import requests
+import json
 
 # global exit flag
 exitFlag = False;
@@ -26,51 +27,60 @@ def ReadAddressAndPOST(sensor):
 	addr = sensor["sensorId"];
 	print addr;
 	chirp = Chirp(1,int(addr,16));
+
 	# read moisture
 	currentValMoisture = chirp.cap_sense();
+	print currentValMoisture;
 	if("moistureHistory" in sensor):
 		historyM = sensor["moistureHistory"];
 	else:
 		historyM = [];
-	historyM.append({"date" : time.time(), "value" : currentValMoisture});
+	moisture = {};
+	moisture["date"] = str(time.time()), 
+	moisture["value"] = str(currentValMoisture)
+	historyM.append(moisture);
+	print historyM;
 
 	#read light
 	currentValLight = chirp.cap_sense();
+	print currentValLight;
 	if("lightHistory" in sensor):
 		historyL = sensor["lightHistory"];
 	else:
 		historyL = [];
-	historyL.append({"date" : time.time(), "value" : currentValLight});
+	light = {"date" : str(time.time()), "value" : str(currentValLight)};
+	historyL.append(light);
+	print historyL;
 
 	#read temp
 	currentValTemp = chirp.cap_sense();
+	print currentValTemp;
 	if("tempHistory" in sensor):
 		historyT = sensor["tempHistory"];
 	else:
 		historyT = [];
-	historyT.append({"date" : time.time(), "value" : currentValTemp});
-
+	temp = {"date" : str(time.time()), "value" : str(currentValTemp)};
+	historyT.append(temp);
+	print historyT;
+	headers = {'content-type': 'application/json'};
 	#update all data fields
-	json = {"sensorId" : addr,
-			"sensorType" : sensor["sensorType"],
-            "pinId" : sensor["pinId"],
-
-            "turnOnTime" : sensor["turnOnTime"],
-            "turnOffTime" : sensor["turnOffTime"],
-
-			"turnOnMoisture" : sensor["turnOnMoisture"],
-            "turnOffMoisture" : sensor["turnOffMoisture"],
-			"moistureHistory" : historyM,
-
-			"turnOnLight" : sensor["turnOnLight"],
-            "turnOffLight" : sensor["turnOffLight"],
-			"lightHistory" : historyL,
-
-			"turnOnTemp" : sensor["turnOnTemp"],
-            "turnOffTemp" : sensor["turnOffTemp"],
-			"tempHistory" : historyT
-        	};
-	requests.post('http://localhost:3000/sensors/updatesensor', data=json);
+	js = {
+		"sensorId" : addr,
+		"sensorType" : sensor["sensorType"],
+        "pinId" : sensor["pinId"],
+        "turnOnTime" : sensor["turnOnTime"],
+        "turnOffTime" : sensor["turnOffTime"],
+	    "turnOnMoisture" : sensor["turnOnMoisture"],
+        "turnOffMoisture" : sensor["turnOffMoisture"],
+		"moistureHistory" : historyM,
+		"turnOnLight" : sensor["turnOnLight"],
+        "turnOffLight" : sensor["turnOffLight"],
+		"lightHistory" : historyL,
+		"turnOnTemp" : sensor["turnOnTemp"],
+        "turnOffTemp" : sensor["turnOffTemp"],
+		"tempHistory" : historyT
+       	};
+	requests.post('http://localhost:3000/sensors/updatesensor', data=json.dumps(js), headers=headers);
 
 # check exitflag
 def checkForExit():
