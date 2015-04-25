@@ -8,7 +8,7 @@ $( "#inputTempKnobsClick" ).click(function() {
 
 $(function($) {
                 $(".knob").knob({
-
+                    'font': '',
                     change : function (value) {
                         //console.log("change : " + value);
                     },
