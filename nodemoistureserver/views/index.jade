@@ -64,40 +64,41 @@ block content
 
     h2 Add Sensor
     #addSensor
-        fieldset
-            input#inputSensorId(type='text', placeholder='SensorID')
-            input#inputSensorType(type='text', placeholder='SensorType')
-            input#inputPinId(type='text', placeholder='PinId')
-            br
-            input#inputTurnOnMoisture(type='text', placeholder='TurnOnMoisture')
-            input#inputTurnOffMoisture(type='text', placeholder='TurnOffMoisture')
-            br
-            input#inputTurnOnLight(type='text', placeholder='TurnOnLight')
-            input#inputTurnOffLight(type='text', placeholder='TurnOffLight')
-            br
-            input#inputTurnOnTemp(type='text', placeholder='TurnOnTemp')
-            input#inputTurnOffTemp(type='text', placeholder='TurnOffTemp')
-            p#basicExample
-            input(id='inputDateStart', type='text', class='date start', style='float: left', placeholder='Start Date')
+        input#inputSensorId(type='text', placeholder='SensorID')
+        input#inputSensorType(type='text', placeholder='SensorType')
+        input#inputPinId(type='text', placeholder='PinId')
+        br
+        input#inputTurnOnMoisture(type='text', placeholder='TurnOnMoisture')
+        input#inputTurnOffMoisture(type='text', placeholder='TurnOffMoisture')
+        br
+        input#inputTurnOnLight(type='text', placeholder='TurnOnLight')
+        input#inputTurnOffLight(type='text', placeholder='TurnOffLight')
+        br
+        input#inputTurnOnTemp(type='text', placeholder='TurnOnTemp')
+        input#inputTurnOffTemp(type='text', placeholder='TurnOffTemp')
+        br
+        a(id="inputTempKnobsClick", href='#', style='width: 100%;') Do the awesome
+        div#inputTempKnobs(style="width: 100%; display: none;")
+            div(class='demo' style='font-size: 35px;')
+              pre
+              input(id='knobTurnOnTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
+            div(class='demo' style='font-size: 35px')
+              pre
+              input(id='knobTurnOffTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35')
+        div(style="width: 100%; display: inline-block;")
+            input(id='inputDateStart', type='text', class='date start', placeholder='Start Date', style='float: left')
             div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
               input(id='inputTimeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time')
               span(class='input-group-addon')
                 span(class="glyphicon glyphicon-time")
-                .span
-              .span
-            .div
-            input(id='inputDateEnd', type='text', class='date start', style='float: left', placeholder='End Date')
+            input(id='inputDateEnd', type='text', class='date start', placeholder='End Date', style='float: left')
             div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
               input(id='inputTimeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time')
               span(class='input-group-addon')
                 span(class="glyphicon glyphicon-time")
-                .span
-              .span
-            .div
-              //input(id='timeEnd', type='text', class='time end clockpicker')
-              //input(id='dateEnd', type='text', class='date end')
-            br
-            br
-            button#btnAddSensor Add Sensor
-    // /Add Sensor
-    // / Wrapper
+            
+          
+        
+
+        button#btnAddSensor Add Sensor
+

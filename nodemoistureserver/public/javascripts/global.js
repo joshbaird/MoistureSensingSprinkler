@@ -1,6 +1,6 @@
 // SensorList Data
 var sensorListData = [];
-
+var debug=1;
 // DOM ready
 $(document).ready(function() {
 
@@ -24,8 +24,6 @@ $(document).ready(function() {
             $("#to_date").datepicker( "option", "minDate", minDate);
         }
     },datepickersOpt));
-
-
 
     //need to work on part for converting to UTF for mongodb store
 
@@ -166,15 +164,16 @@ function addSensor(event) {
     }
 
     // check errorCount is 0
-    if(errorCount === 0) {
+    //turn on debug at top if you don't want to fill in all fields
+    if(errorCount === 0 || debug) {
         var newSensor = {
             'sensorId' : $('#addSensor fieldset input#inputSensorId').val(),
             'sensorType' : $('#addSensor fieldset input#inputSensorType').val(),
             'pinId' : $('#addSensor fieldset input#inputPinId').val(),
 
             // add time on and off here
-            'turnOnTime' : startEpoch,
-            'turnOffTime' : endEpoch,
+            //'turnOnTime' : $('#addSensor fieldset input#inputPinId').val(),
+            //'turnOffTime' : $('#addSensor fieldset input#inputPinId').val(),
 
             'turnOnMoisture' : $('#addSensor fieldset input#inputTurnOnMoisture').val(),
             'turnOffMoisture' : $('#addSensor fieldset input#inputTurnOffMoisture').val(),
@@ -182,9 +181,15 @@ function addSensor(event) {
             'turnOnLight' : $('#addSensor fieldset input#inputTurnOnLight').val(),
             'turnOffLight' : $('#addSensor fieldset input#inputTurnOffLight').val(),
 
-            'turnOnTemp' : $('#addSensor fieldset input#inputTurnOnTemp').val(),
-            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val()
+            //adapted for Farenheit degrees/Celsius Degrees..harmless if not found on replace...no need for error checking
+            'turnOnTemp' : $('#addSensor fieldset input#inputTurnOnTemp').val().replace(' F'+'\xB0','').replace(' C'+'\xB0',''),
+            'turnOffTemp' : $('#addSensor fieldset input#inputTurnOffTemp').val().replace(' F'+'\xB0','').replace(' C'+'\xB0',''),
+            
+            'turnOnTime' : startEpoch,
+            'turnOffTime' : endEpoch
         }
+        // console.log(newSensor['turnOnTemp']);
+        // console.log(newSensor['turnOffTemp']);
 
         $.ajax({
             type: 'POST',
