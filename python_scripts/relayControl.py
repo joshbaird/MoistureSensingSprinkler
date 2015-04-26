@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 
 import RPi.GPIO as GPIO
+import time
 from time import sleep
 import requests
+GPIO.setmode(GPIO.BOARD);
 
 # global exit flag
 exitFlag = False;
@@ -10,23 +12,36 @@ exitFlag = False;
 # GET port settings and sensor data from REST server
 def getPortSettings(url):
 	r = requests.get(url);
-	return r.json();
+	return r.json;
 
 # Check to turn on relay for all sensors
 def checkSettings(port):
-	return checkTimeSettings(port) && checkMoistureSettings(port) && checkTempSettings(port) && checkLightSettings(port) && checkWeatherSettings(port);
+	return checkTimeSettings(port) and checkMoistureSettings(port) and checkTempSettings(port) and checkLightSettings(port) and checkWeatherSettings(port);
 
 def checkTimeSettings(port):
-	return port["turnOnTime"] > Date().now() && port["turnOffTime"] < Date().now():
+	print "time now: " + str(time.time());
+	print "time on:  " + str(float(port["turnOnTime"])/1000);
+	print "time off: " + str(float(port["turnOffTime"])/1000);
+	return float(port["turnOnTime"])/1000 < time.time() and float(port["turnOffTime"])/1000 > time.time();
 
 def checkMoistureSettings(port):
-	return port["turnOnMoisture"] > port["moistureHistory"][port["moistureHistory"].length - 1]["value"] && port["turnOffMoisture"] < port["moistureHistory"][port["moistureHistory"].length - 1]["value"];
+	print "moisture: ";
+	currentVal =  port["moistureHistory"][len(port["moistureHistory"]) - 1]["value"]
+	print currentVal;
+	return int(port["turnOnMoisture"]) < int(currentVal) and int(port["turnOffMoisture"]) > int(currentVal);
 
 def checkTempSettings(port):
-	return port["turnOnTemp"] > port["tempHistory"][port["tempHistory"].length - 1]["value"] && port["turnOffTemp"] < port["tempHistory"][port["tempHistory"].length - 1]["value"];
+	print "temp: ";
+	currentVal =  port["tempHistory"][len(port["tempHistory"]) - 1]["value"];
+	print currentVal;
+
+	return int(port["turnOnTemp"]) < int(currentVal) and int(port["turnOffTemp"]) > int(currentVal);
 
 def checkLightSettings(port):
-	return port["turnOnLight"] > port["lightHistory"][port["lightHistory"].length - 1]["value"] && port["turnOffLight"] < port["lightHistory"][port["lightHistory"].length - 1]["value"];
+	print "light: ";
+	currentVal =  port["lightHistory"][len(port["lightHistory"]) - 1]["value"];
+	print currentVal;
+	return int(port["turnOnLight"]) < int(currentVal) and int(port["turnOffLight"]) > int(currentVal);
 
 # for now return true. will try and implement later.
 def checkWeatherSettings(port):
@@ -34,14 +49,16 @@ def checkWeatherSettings(port):
 
 # Turn On Relay by PORT
 def turnOnRelay(port):
-	GPIO.setup(port, GPIO.OUT);
-	GPIO.output(port, False);
+	print "turning pin: " + str(port["pinId"]) + " on...";
+	GPIO.setup(int(port["pinId"]), GPIO.OUT);
+	GPIO.output(int(port["pinId"]), False);
 	return;
 
 # Turn Off Relay by PORT
 def turnOffRelay(port):
-	GPIO.setup(port, GPIO.OUT);
-	GPIO.output(port, True);
+	print "turning pin: " + str(port["pinId"]) + " off...";
+	GPIO.setup(int(port["pinId"]), GPIO.OUT);
+	GPIO.output(int(port["pinId"]), True);
 	return;
 # Delay
 def delay(seconds):
@@ -53,8 +70,8 @@ def checkForExit():
 	return exitFlag;
 
 ################## Main loop ###################
-while (checkForExit()):
-	values = getPortSettings("localhost:3000/sensors/sensorlist");
+while (~checkForExit()):
+	values = getPortSettings('http://localhost:3000/sensors/sensorlist');
 	for value in values:
 		if (checkSettings(value)):
 			turnOnRelay(value);
