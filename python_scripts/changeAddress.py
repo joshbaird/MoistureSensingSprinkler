@@ -4,9 +4,9 @@ from chirp import Chirp
 import sys
 from time import sleep
 
-fromAddr = str(sys.arg[1]);
-toAddr = str(sys.arg[2]);
-print "Changing address from: " fromAddrm + ", to: " + toAddr; 
+fromAddr = str(sys.argv[1]);
+toAddr = str(sys.argv[2]);
+print "Changing address from: " + fromAddr + ", to: " + toAddr; 
 
 chirp = Chirp(1,int(fromAddr,16));
 
@@ -18,7 +18,7 @@ print "writing to reg 1";
 chirp.write(1);
 sleep(0.5);
 print "writing new address: " + toAddr;
-chrip.write(int(toAddr,16));
+chirp.write(int(toAddr,16));
 sleep(0.5);
 print "resetting unit";
 chirp.write(6);
