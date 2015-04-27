@@ -61,7 +61,7 @@ class Chirp:
 
   def light(self):
     self.write(3)
-    time.sleep(1.5)
+    time.sleep(3)
     return self.get_reg(4)
 
   def __repr__(self):
