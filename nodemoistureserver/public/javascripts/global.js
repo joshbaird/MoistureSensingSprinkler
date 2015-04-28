@@ -1,3 +1,8 @@
+
+
+
+/* Deprecated. Code below was moved to index.jade
+
 // SensorList Data
 var sensorListData = [];
 var debug=1;
@@ -250,3 +255,5 @@ function deleteSensor(event) {
     }
 
 };
+
+*/
