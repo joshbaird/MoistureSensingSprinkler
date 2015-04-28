@@ -1,9 +1,18 @@
 $(document).ready(function() {
 
-$( "#inputTempKnobsClick" ).click(function() {
-  
-   $("#inputTempKnobs").toggle();
+$('input[id*=Temp]:not(.knob)').focusin(function() {
+  $("#inputTempKnobs").show();  
+
 });
+
+$('input[id*=Temp]:not(.knob)').focusout(function() {
+  $("#inputTempKnobs").hide();  
+});
+
+// $( "#inputTempKnobsClick" ).click(function() {
+  
+//    $("#inputTempKnobs").toggle();
+// });
 
 
 $(function($) {
