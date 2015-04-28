@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 
+
+////////////////////////////////// sensorlist /////////////////////////////////////
 /*
  *  GET sensorlist
  */
@@ -68,6 +70,78 @@ router.delete('/deletesensor/:id', function(req, res) {
         res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
     });
 });
+/////////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////// sensorconfig /////////////////////////////////////
+/*
+ * GET sensorconfig
+ */
+router.get('/sensorconfig', function(req,res) {
+  var db = req.db;
+  db.collection('sensorconfig').find().toArray(function (err, items) {
+    res.json(items);
+  });
+});
+
+/*
+ * POST to addsensorconfig
+ */
+router.post('/addsensorconfig', function(req,res) {
+    console.log("addsensorconfig called with type: " + req.body["sensorType"]);
+    var db = req.db;
+    db.collection('sensorconfig').find().toArray( function (err, items) {
+      var result = 0;
+      for (i = 0; i < items.length ; i++){
+        if(items[i]["sensorType"] === req.body["sensorType"]){
+          result = 1;
+          break;
+        }
+      }
+      console.log(result);
+      if(result === 1){
+        console.log("sensorType already exists, updating info");
+        db.collection('sensorconfig').update({"sensorType" : req.body["sensorType"]}, req.body, function(err, result) {
+          res.send(
+            (err === null) ? { msg: ''} : {msg: err }
+          );
+        });
+      }
+      else{
+        console.log("new sensorId, adding new sensor config");
+        db.collection('sensorconfig').insert(req.body, function(err, result) {
+          res.send(
+            (err === null) ? { msg: ''} : {msg: err }
+          );
+        });
+      }
+    });
+});
+
+/*
+ * POST to updatesensorconfig
+ */
+router.post('/updatesensorconfig', function(req,res) {
+    var db = req.db;
+    db.collection('sensorconfig').update({"sensorId" : req.body.sensorId } ,req.body, function(err, result) {
+      res.send(
+          (err === null) ? { msg: ''} : {msg: err }
+      );
+    });
+});
+
+/*
+ * DELETE sensorconfig
+ */
+router.delete('/deletesensorconfig/:id', function(req, res) {
+    var db = req.db;
+    var sensorToDelete = req.params.id;
+    db.collection('sensorconfig').removeById(sensorToDelete, function(err, result) {
+        res.send((result === 1) ? { msg: '' } : { msg:'error: ' + err });
+    });
+});
+/////////////////////////////////////////////////////////////////////////////////////
+
 
 /*
   Generates alphabetical characters for a 'unique' id string. To add characters
