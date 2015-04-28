@@ -6,4 +6,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+/* GET configuration page. */
+router.get('/config', function(req, res, next) {
+  res.render('config', { title: 'Configuration' });
+});
+
 module.exports = router;

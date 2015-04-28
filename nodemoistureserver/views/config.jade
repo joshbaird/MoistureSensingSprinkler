@@ -1,0 +1,214 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to Need based sprinkler system.
+
+  #wrapper
+    #sensorConfigInfo
+        h2 Sensor Config Info
+        p
+            strong Type:
+            |  <span id='sensorConfigType'></span>
+            br
+            strong Moisture Min:
+            |  <span id='sensorConfigMoistureMin'></span>
+            br
+            strong Moisture Max:
+            |  <span id='sensorConfigMoistureMax'></span>
+            br
+            strong Light Min:
+            |  <span id='sensorConfigLightMin'></span>
+            br
+            strong Light Max:
+            |  <span id='sensorConfigLightMax'></span>
+            br
+            strong Temp Min:
+            |  <span id='sensorConfigTempMin'></span>
+            br
+            strong Temp Max:
+            |  <span id='sensorConfigTempMax'></span>
+    // /Sensor Config Info
+
+    h2 Configuration List
+    #sensorList
+      table
+        thead
+          th Type
+          th Delete?
+        tbody
+      // /Sensor List
+
+    h2 Add Configuration
+    #addSensor
+        fieldset
+            input#inputConfigSensorType(type='text', placeholder='SensorType')
+            br
+            input#inputConfigMoistureMin(type='text', placeholder='Moisture Min Value')
+            input#inputConfigMoistureMax(type='text', placeholder='Moisture Max Value')
+            br
+            input#inputConfigLightMin(type='text', placeholder='Light Min Value')
+            input#inputConfigLightMax(type='text', placeholder='Light Max Value')
+            br
+            input#inputConfigTempMin(type='text', placeholder='Temp Min Value')
+            input#inputConfigTempMax(type='text', placeholder='Temp Max Value')
+            br
+            button#btnAddSensor Add Sensor
+
+block scriptology
+  script(type="text/javascript").
+    // SensorList Data
+    var sensorListData = [];
+    var debug = 1;
+    // DOM ready
+    $(document).ready(function() {
+
+      // Populate the user table on initial page load
+      populateTable();
+
+      // Sensor Address link click
+      $('#sensorList table tbody').on('click', 'td a.linkshowsensorconfig', showSensorInfo);
+
+      // Add Sensor button click
+      $('#btnAddSensor').on('click', addSensor);
+
+      // Delete Sensor
+      $('#sensorList table tbody').on('click', 'td a.linkdeletesensorconfig', deleteSensor);
+    });
+
+    // Functons
+    function populateTable() {
+      // Empty content string
+      var tableContent = '';
+
+      // jQuery AJAX call for JSON
+      $.getJSON('/sensors/sensorconfig', function(data) {
+        // Stick our sensor data array into a sensorlist variable in the global object
+        sensorListData = data;
+        // For each item in our JSON, add a table row and cells to the content string
+        $.each(data, function() {
+          tableContent += '<tr>';
+          tableContent += '<td><a href="#" class="linkshowsensorconfig" rel="' + this.sensorType + '">' + this.sensorType + '</a></td>';
+          tableContent += '<td><a href="#" class="linkdeletesensorconfig" rel="' + this._id + '">delete</a></td>';
+          tableContent += '</tr>';
+        });
+
+        // Inject the whole content string into our existing HTML table
+        $('#sensorList table tbody').html(tableContent);
+      });
+    };
+
+    // Show Sensor Info
+    function showSensorInfo(event) {
+
+      // Prevent Link from Firing
+      event.preventDefault();
+
+      // Retrieve Address from link rel attribute
+      var thisSensorId = $(this).attr('rel');
+
+      // Get Index of object based on id value
+      var arrayPosition = sensorListData.map(function(arrayItem) {
+        return arrayItem.sensorType;
+      }).indexOf(thisSensorId);
+      // Get our Sensor Object
+      var thisSensorObject = sensorListData[arrayPosition];
+
+      //Populate Info Box
+      $('#sensorConfigType').text(thisSensorObject.sensorType);
+
+      $('#sensorConfigMoistureMin').text(thisSensorObject.moistureMin);
+      $('#sensorConfigMoistureMax').text(thisSensorObject.moistureMax);
+
+      $('#sensorConfigLightMin').text(thisSensorObject.lightMin);
+      $('#sensorConfigLightMax').text(thisSensorObject.lightMax);
+
+      $('#sensorConfigTempMin').text(thisSensorObject.tempMin);
+      $('#sensorConfigTempMax').text(thisSensorObject.tempMax);
+
+    };
+
+
+    // Add Sensor
+    function addSensor(event) {
+      event.preventDefault();
+      var errorCount = 0;
+      $('#addSensor input').each(function(index, val) {
+        if ($(this).val() === '') {
+          errorCount++;
+        }
+      });
+
+      // check errorCount is 0
+      //turn on debug at top if you don't want to fill in all fields
+      if (errorCount === 0 || debug) {
+        var newSensor = {
+            'sensorType': $('#addSensor fieldset input#inputConfigSensorType').val(),
+
+            'moistureMin': $('#addSensor fieldset input#inputConfigMoistureMin').val(),
+            'moistureMax': $('#addSensor fieldset input#inputConfigMoistureMax').val(),
+
+            'lightMin': $('#addSensor fieldset input#inputConfigLightMin').val(),
+            'lightMax': $('#addSensor fieldset input#inputConfigLightMax').val(),
+
+            //adapted for Farenheit degrees/Celsius Degrees..harmless if not found on replace...no need for error checking
+            'tempMin': $('#addSensor fieldset input#inputConfigTempMin').val(),
+            'tempMax': $('#addSensor fieldset input#inputConfigTempMax').val()
+          }
+          // console.log(newSensor['turnOnTemp']);
+          // console.log(newSensor['turnOffTemp']);
+
+        $.ajax({
+          type: 'POST',
+          data: newSensor,
+          url: '/sensors/addsensorconfig',
+          dataType: 'JSON'
+        }).done(function(response) {
+          if (response.msg === '') {
+            $('#addSensor fieldset input').val('');
+            populateTable();
+          } else {
+            alert('Error: ' + response.msg);
+          }
+        });
+      } else {
+        alert('Please fill in all fields.');
+        return false;
+      }
+    };
+
+    // Delete Sensor
+    function deleteSensor(event) {
+
+      event.preventDefault();
+
+      // Pop up a confirmation dialog
+      var confirmation = confirm('Are you sure you want to delete this sensor?');
+
+      // Check and make sure the user confirmed
+      if (confirmation === true) {
+
+        // If they did, do our delete
+        $.ajax({
+          type: 'DELETE',
+          url: '/sensors/deletesensorconfig/' + $(this).attr('rel')
+        }).done(function(response) {
+
+          // Check for a successful (blank) response
+          if (response.msg === '') {} else {
+            alert('Error: ' + response.msg);
+          }
+
+          // Update the table
+          populateTable();
+
+        });
+
+      } else {
+
+        // If they said no to the confirm, do nothing
+        return false;
+
+      }
+
+    };
