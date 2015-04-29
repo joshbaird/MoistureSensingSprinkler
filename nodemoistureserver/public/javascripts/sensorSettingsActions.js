@@ -62,9 +62,88 @@
 
       // Delete Sensor
       $('#sensorList table tbody').on('click', 'td a.linkdeletesensor', deleteSensor);
+
+      // Set up all the text inputs to call a validation method on keyup
+      $('input[type=text]').on('input', inputChange);
     });
 
-    // Functons
+    // Functions
+    // Use regex literals so they don't have to made at runtime
+    var regExObjs = {
+      'inputSensorId'       : /^[\w\d-]+$/i,  // One or more word chars, digits, or -
+      'inputSensorType'     : /^[\w\d-]+$/i,
+      'inputPinId'          : /^[\d]{1,2}$/,  // 1 or 2 digits
+      'inputTurnOnMoisture' : /^0*[\d]{1,2}$|^0$|^100$/,
+      'inputTurnOffMoisture': /^0*[\d]{1,2}$|^0$|^100$/,
+      'inputTurnOnLight'    : /^0*[\d]{1,2}$|^0$|^100$/,
+      'inputTurnOffLight'   : /^0*[\d]{1,2}$|^0$|^100$/,
+      'inputTurnOnTemp'     : /^0*([\d]{1,2}|0|100)\s?F°$/i,
+      'inputTurnOffTemp'    : /^0*([\d]{1,2}|0|100)\s?F°$/i,
+      'inputDateStart'      : /^[\d]{1,2}\/[\d]{1,2}\/[\d]{4}$/,
+      'inputTimeStart'      : /^[\d]{1,2}:[\d]{2}\s?(am|pm)$/i,
+      'inputDateEnd'        : /^[\d]{1,2}\/[\d]{1,2}\/[\d]{4}$/,
+      'inputTimeEnd'        : /^[\d]{1,2}:[\d]{2}\s?(am|pm)$/i,
+    };
+
+    // Holds if the inputs are in a valid state
+    var inputStatus = {
+      'inputSensorId'       : false,
+      'inputSensorType'     : false,
+      'inputPinId'          : false,
+      'inputTurnOnMoisture' : false,
+      'inputTurnOffMoisture': false,
+      'inputTurnOnLight'    : false,
+      'inputTurnOffLight'   : false,
+      'inputTurnOnTemp'     : false,
+      'inputTurnOffTemp'    : false,
+      'inputDateStart'      : false,
+      'inputTimeStart'      : false,
+      'inputDateEnd'        : false,
+      'inputTimeEnd'        : false,
+    };
+
+    /*
+      Run everytime an input changes
+    */
+    function inputChange(evt){
+      // Get the input id of the input being...well...inputted
+      var inputId = evt.currentTarget.id;
+      var regEx   = regExObjs[inputId];
+      var inputData;
+      setTimeout(function(){
+        inputData = evt.currentTarget.value;
+        if (regEx.exec(inputData) == null){
+          inputStatus[inputId] = false;
+          $(evt.target).css('background-color', 'rgba(255, 51, 0, .3');
+        }
+        else{ // Data is valid for the moment
+          inputStatus[inputId] = true;
+          $(evt.target).css('background-color', 'rgba(255, 51, 0, 0');
+          console.log(testInputs());
+        }
+      },250);
+    }
+
+    /*
+      Can be run at anytime. Returns true if all the fields are valid
+    */
+    function testInputs(){
+      var valid = true;
+      var inputs = $('input[type=text]');
+      var inputId;
+
+      // Loop through all of the text inputs to get the ids and access their status
+      for(var i = 0; i < inputs.length; i++){
+        inputId = inputs[i].id;  // Get the id
+        valid = valid && inputStatus[inputId];  // Logical and
+        // Check to see if there is any value
+        if(inputs[i].value == ""){
+          $(inputs[i]).css('background-color', 'rgba(255, 51, 0, .3)');
+        }
+      }
+      return valid;
+    }
+
     function populateTable() {
       // Empty content string
       var tableContent = '';
@@ -139,12 +218,20 @@
     // Add Sensor
     function addSensor(event) {
       event.preventDefault();
+
+      // Test to see if the inputs are valid
+      if(!testInputs()){
+        alert('Please Correct Fields Highlighted in red');
+        return;
+      }
+      /*
       var errorCount = 0;
       $('#addSensor input').each(function(index, val) {
         if ($(this).val() === '') {
           errorCount++;
         }
       });
+      */
 
 
       //To get epoch we take values of two fields '04/23/2015' and 11:45PM and form in to string:
