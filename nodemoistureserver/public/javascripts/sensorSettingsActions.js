@@ -65,6 +65,7 @@
 
       // Set up all the text inputs to call a validation method on keyup
       $('input[type=text]').on('input', inputChange);
+      $('input[type=text]').on('blur', inputChange);
     });
 
     // Functions
@@ -85,7 +86,7 @@
       'inputTimeEnd'        : /^[\d]{1,2}:[\d]{2}\s?(am|pm)$/i,
     };
 
-    // Holds if the inputs are in a valid state
+    // Holds if the inputs are in a valid state. use this later to say, check
     var inputStatus = {
       'inputSensorId'       : false,
       'inputSensorType'     : false,
@@ -112,6 +113,7 @@
       var inputData;
       setTimeout(function(){
         inputData = evt.currentTarget.value;
+        console.log()
         if (regEx.exec(inputData) == null){
           inputStatus[inputId] = false;
           $(evt.target).css('background-color', 'rgba(255, 51, 0, .3');
@@ -119,7 +121,6 @@
         else{ // Data is valid for the moment
           inputStatus[inputId] = true;
           $(evt.target).css('background-color', 'rgba(255, 51, 0, 0');
-          console.log(testInputs());
         }
       },250);
     }
