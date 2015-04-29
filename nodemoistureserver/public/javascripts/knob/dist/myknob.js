@@ -7,6 +7,25 @@ $('input[id*=Temp]:not(.knob)').focusin(function() {
 
 $('input[id*=Temp]:not(.knob)').focusout(function() {
   $("#inputTempKnobs").hide();  
+
+  //take any integers out of the field and change to proper formatting
+  if( parseInt($(this).val()) != null )
+  {
+    console.log("greater than zero and not null");
+    var test = parseInt($(this).val()).toString();
+    if(test != "NaN")
+    {
+    console.log(test);
+     $(this).val(test.toString() + " F"+'\xB0');   
+    }
+    //if no integers, reset field aka blank
+    else
+    {
+     $(this).val("");    
+    }
+  
+   }
+  
 });
 
 // $( "#inputTempKnobsClick" ).click(function() {
