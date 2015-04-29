@@ -225,14 +225,14 @@
         alert('Please Correct Fields Highlighted in red');
         return;
       }
-      /*
+
       var errorCount = 0;
       $('#addSensor input').each(function(index, val) {
         if ($(this).val() === '') {
           errorCount++;
         }
       });
-      */
+
 
 
       //To get epoch we take values of two fields '04/23/2015' and 11:45PM and form in to string:
