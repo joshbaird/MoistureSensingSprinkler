@@ -1,12 +1,12 @@
 
 function Sensor(sensor, config_){
 	this.config = config_;
-	this.sensorID = sensor.sensorID;
-	this.getSensorID = function(){
-		return this.sensorID;
+	this.sensorId = sensor.sensorId;
+	this.getSensorId = function(){
+		return this.sensorId;
 	}
-	this.setSensorID = function(val){
-		this.sensorID = val;
+	this.setSensorId = function(val){
+		this.sensorId = val;
 	}
 
 	this.sensorType = sensor.sensorType;
@@ -17,12 +17,12 @@ function Sensor(sensor, config_){
 		this.sensorType = val;
 	}
 
-	this.pinID =  sensor.pinID;
-	this.getPinID = function(){
-		return this.pinID;
+	this.pinId =  sensor.pinId;
+	this.getPinId = function(){
+		return this.pinId;
 	}
-	this.setPinID = function(val){
-		this.pinID = val;
+	this.setPinId = function(val){
+		this.pinId = val;
 	}
 
 	this.turnOnTime =  sensor.turnOnTime;

@@ -1,6 +1,7 @@
 //TODO: change white, IndianRed, lime, crimson 
 // when doing css styling 
   // SensorList Data
+  var sensor = require('sensor');
     var sensorListData = [];
     var debug = 1;
     // DOM ready
@@ -158,6 +159,10 @@
     function populateTable() {
       // Empty content string
       var tableContent = '';
+      var config;
+      $.getJSON('/sensors/sensorconfig', function(data) {
+        config = data;
+      });
 
       // jQuery AJAX call for JSON
       $.getJSON('/sensors/sensorlist', function(data) {
@@ -165,10 +170,14 @@
         sensorListData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function() {
+          var s = new sensor({}{config});
+          s.setSensorId(this.sensorId);
+          s.setSensorType(this.sensorType);
+          s.setPinId(this.pinId);
           tableContent += '<tr>';
-          tableContent += '<td><a href="#" class="linkshowsensor" rel="' + this.sensorId + '">' + this.sensorId + '</a></td>';
-          tableContent += '<td>' + this.sensorType + '</td>';
-          tableContent += '<td>' + this.pinId + '</td>';
+          tableContent += '<td><a href="#" class="linkshowsensor" rel="' + s.getSensorId(); + '">' + this.sensorId + '</a></td>';
+          tableContent += '<td>' + s.getSensorType() + '</td>';
+          tableContent += '<td>' + s.getPinId() + '</td>';
           tableContent += '<td><a href="#" class="linkdeletesensor" rel="' + this._id + '">delete</a></td>';
           tableContent += '</tr>';
         });
