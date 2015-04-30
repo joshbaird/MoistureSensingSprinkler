@@ -1,7 +1,6 @@
 //TODO: change white, IndianRed, lime, crimson 
 // when doing css styling 
   // SensorList Data
-  var sensor = require('sensor');
     var sensorListData = [];
     var debug = 1;
     // DOM ready
@@ -170,7 +169,7 @@
         sensorListData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function() {
-          var s = new sensor({}{config});
+          var s = new Sensor({},{config});
           s.setSensorId(this.sensorId);
           s.setSensorType(this.sensorType);
           s.setPinId(this.pinId);
