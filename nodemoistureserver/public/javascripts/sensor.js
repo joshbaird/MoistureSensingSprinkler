@@ -42,17 +42,17 @@ function Sensor(sensor, config_){
 
 	this.turnOnMoisture = sensor.turnOnMoisture;
 	this.getTurnOnMoisture = function(){
-		return this.turnOnMoisture;
+		return convertToDisplay(this.turnOnMoisture, this.config.moistureMin, this.config.moistureMax);
 	}
 	this.setTurnOnMoisture = function(val){
-		this.turnOnMoisture = val;
+		this.turnOnMoisture = convertToRaw(val, this.config.moistureMin, this.config.moistureMax);
 	}
 	this.turnOffMoisture = sensor.turnOffMoisture;
 	this.getTurnOffMoisture = function(){
-		return this.turnOffMoisture;
+		return convertToDisplay(this.turnOffMoisture, this.config.moistureMin, this.config.moistureMax);
 	}
 	this.setTurnOffMoisture = function(val){
-		this.turnOffMoisture = val;
+		this.turnOffMoisture = convertToRaw(val, this.config.moistureMin, this.config.moistureMax);
 	}
 	this.moistureHistory = sensor.moistureHistory;
 	this.getMoistureHistory = function(){
@@ -64,17 +64,17 @@ function Sensor(sensor, config_){
 
 	this.turnOnLight = sensor.turnOnLight;
 	this.getTurnOnLight = function(){
-		return this.turnOnLight;
+		return convertToDisplay(this.turnOnLight, this.config.lightMin, this.config.lightMax);
 	}
 	this.setTurnOnLight = function(val){
-		this.turnOnLight = val;
+		this.turnOnLight = convertToRaw(val, this.config.lightMin, this.config.lightMax);
 	}
 	this.turnOffLight = sensor.turnOffLight;
 	this.getTurnOffLight = function(){
-		return this.turnOffLight;
+		return convertToDisplay(this.turnOffLight, this.config.lightMin, this.config.lightMax);
 	}
 	this.setTurnOffLight = function(val){
-		this.turnOffLight = val;
+		this.turnOffLight = convertToRaw(val, this.config.lightMin, this.config.lightMax);
 	}
 	this.lightHistory = sensor.lightHistory;
 	this.getLightHistory = function(){
@@ -86,17 +86,17 @@ function Sensor(sensor, config_){
 
 	this.turnOnTemp = sensor.turnOnTemp;
 	this.getTurnOnTemp = function(){
-		return this.turnOnTemp;
+		return convertToDisplay(this.turnOnTemp, this.config.tempMin, this.config.tempMax);
 	}
 	this.setTurnOnTemp = function(val){
-		this.turnOnTemp = val;
+		this.turnOnTemp = convertToRaw(val, this.config.tempMin, this.config.tempMax);
 	}
 	this.turnOffTemp = sensor.turnOffTemp;
 	this.getTurnOffTemp = function(){
-		return this.turnOffTemp;
+		return convertToDisplay(this.turnOffTemp, this.config.tempMin, this.config.tempMax);
 	}
 	this.setTurnOffTemp = function(val){
-		this.turnOffTemp = val;
+		this.turnOffTemp = convertToRaw(val, this.config.tempMin, this.config.tempMax);
 	}
 	this.tempHistory = sensor.tempHistory;
 	this.getTempHistory = function(){
@@ -105,4 +105,11 @@ function Sensor(sensor, config_){
 	this.setTempHistory = function(val){
 		this.tempHistory = val;
 	}
+}
+
+function convertToRaw(val, min, max){
+	return ((float(val)/100) * (float(max) - float(min)) + float(min));
+}
+function convertToDisplay(val, min, max){
+	return ((float(val) - float(min)) / (float(max) - float(min)) * 100);
 }
