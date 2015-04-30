@@ -114,4 +114,4 @@ function convertToDisplay(val, min, max){
 	return ((float(val) - float(min)) / (float(max) - float(min)) * 100);
 }
 
-mudule.exports = Sensor
+module.exports = Sensor
