@@ -1,3 +1,5 @@
+//TODO: change white, IndianRed, lime, crimson 
+// when doing css styling 
   // SensorList Data
     var sensorListData = [];
     var debug = 1;
@@ -112,15 +114,23 @@
       var regEx   = regExObjs[inputId];
       var inputData;
       setTimeout(function(){
+
         inputData = evt.currentTarget.value;
-        console.log()
+        console.log("is" + inputData);
+        //if we leave an input blank during fill in, not necessarily invalid
+        //wait until 'add sensor' clicked...less anxiety
+        if(inputData == ""){
+          $(evt.target).css('background-color', 'white');
+          inputStatus[inputId] = false;
+          return;
+        }
         if (regEx.exec(inputData) == null){
           inputStatus[inputId] = false;
-          $(evt.target).css('background-color', 'rgba(255, 51, 0, .3');
+          $(evt.target).css('background-color', 'IndianRed');
         }
         else{ // Data is valid for the moment
           inputStatus[inputId] = true;
-          $(evt.target).css('background-color', 'rgba(255, 51, 0, 0');
+          $(evt.target).css('background-color', 'lime');
         }
       },250);
     }
@@ -139,7 +149,7 @@
         valid = valid && inputStatus[inputId];  // Logical and
         // Check to see if there is any value
         if(inputs[i].value == ""){
-          $(inputs[i]).css('background-color', 'rgba(255, 51, 0, .3)');
+          $(inputs[i]).css('background-color', 'crimson');
         }
       }
       return valid;
