@@ -174,7 +174,7 @@
           s.setSensorType(this.sensorType);
           s.setPinId(this.pinId);
           tableContent += '<tr>';
-          tableContent += '<td><a href="#" class="linkshowsensor" rel="' + s.getSensorId(); + '">' + this.sensorId + '</a></td>';
+          tableContent += '<td><a href="#" class="linkshowsensor" rel="' + s.getSensorId() + '">' + s.getSensorId() + '</a></td>';
           tableContent += '<td>' + s.getSensorType() + '</td>';
           tableContent += '<td>' + s.getPinId() + '</td>';
           tableContent += '<td><a href="#" class="linkdeletesensor" rel="' + this._id + '">delete</a></td>';
