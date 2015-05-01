@@ -2,3 +2,4 @@ div.demo{text-align: center; width: 280px; float: left}
 div.demo > p{font-size: 20px}
 input#turnOnTemp.knob{ font-size: 35px; }
 input#turnOffTemp.knob{ font-size: 35px; }
+.preKnob{ background-color: white; border-color: white; }
