@@ -37,12 +37,12 @@
       //         console.log(this.value);
       //     });
       $('.clockPickerInput').clockpicker({
-        autoclose: true,
+        autoclose: false,
         twelvehour: true,
-        placement: 'bottom',
+        placement: 'top',
 
-        default: 'now'
-          //donetext: 'yep',
+        default: 'now',
+        donetext: 'SET',
 
       });
 

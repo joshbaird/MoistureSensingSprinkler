@@ -1,8 +1,14 @@
+
 $(document).ready(function() {
 
 $('input[id*=Temp]:not(.knob)').focusin(function() {
-  $("#inputTempKnobs").show();  
+  $("#inputTempKnobs").show();
+  n = $(document).height();
 
+    $('html, body').animate({ scrollTop: n }, {duration: 1000}, {complete: function() {
+      
+     }});
+    
 });
 
 $('input[id*=Temp]:not(.knob)').focusout(function() {
@@ -25,6 +31,7 @@ $('input[id*=Temp]:not(.knob)').focusout(function() {
     }
   
    }
+     
   
 });
 
