@@ -65,18 +65,18 @@ block content
     h2 Add Sensor
     #addSensor
         fieldset
-            input#inputSensorId(type='text', placeholder='SensorID')
-            input#inputSensorType(type='text', placeholder='SensorType')
-            input#inputPinId(type='text', placeholder='PinId')
+            input#inputSensorId(type='text', class='form-control', placeholder='SensorID')
+            input#inputSensorType(type='text', class='form-control', placeholder='SensorType')
+            input#inputPinId(type='text', class='form-control', placeholder='PinId')
             br
-            input#inputTurnOnMoisture(type='text', placeholder='TurnOnMoisture')
-            input#inputTurnOffMoisture(type='text', placeholder='TurnOffMoisture')
+            input#inputTurnOnMoisture(type='text', class='form-control', placeholder='TurnOnMoisture')
+            input#inputTurnOffMoisture(type='text', class='form-control', placeholder='TurnOffMoisture')
             br
-            input#inputTurnOnLight(type='text', placeholder='TurnOnLight')
-            input#inputTurnOffLight(type='text', placeholder='TurnOffLight')
+            input#inputTurnOnLight(type='text', class='form-control', placeholder='TurnOnLight')
+            input#inputTurnOffLight(type='text', class='form-control', placeholder='TurnOffLight')
             br
-            input#inputTurnOnTemp(type='text', placeholder='TurnOnTemp')
-            input#inputTurnOffTemp(type='text', placeholder='TurnOffTemp')
+            input#inputTurnOnTemp(type='text', class='form-control', placeholder='TurnOnTemp')
+            input#inputTurnOffTemp(type='text', class='form-control', placeholder='TurnOffTemp')
             br
 
             div#inputTempKnobs(style="width: auto; display: none;")
@@ -87,14 +87,14 @@ block content
                   pre.preKnob
                   input(id='knobTurnOffTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
             div(style="width: auto; display: inline-block;")
-                input(id='inputDateStart', type='text', class='date start form-control', placeholder='Start Date', style='float: left')
+                input(id='inputDateStart', type='text', class='date start form-control', placeholder='Start Date', style='float: left; position: relative; ')
                 div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
-                  input(id='inputTimeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time')
+                  input(id='inputTimeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time', style='position: relative; ')
                   span(class='input-group-addon')
                     span(class="glyphicon glyphicon-time")
-                input(id='inputDateEnd', type='text', class='date start form-control', placeholder='End Date', style='float: left')
+                input(id='inputDateEnd', type='text', class='date start form-control', placeholder='End Date', style='float: left; position: relative; ')
                 div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
-                  input(id='inputTimeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time')
+                  input(id='inputTimeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time', style='position: relative; ')
                   span(class='input-group-addon')
                     span(class="glyphicon glyphicon-time")
             button#btnAddSensor Add Sensor
@@ -141,6 +141,11 @@ block scriptology
           var minDate = $(this).datepicker('getDate');
           minDate.setDate(minDate.getDate() + 2); //add two days
           $("#to_date").datepicker("option", "minDate", minDate);
+        },
+        beforeShow: function() {
+          setTimeout(function(){
+              $('.ui-datepicker').css('z-index', 99999999999999);
+          }, 0);
         }
       }, datepickersOpt));
       $('.clockPickerInput').clockpicker({
