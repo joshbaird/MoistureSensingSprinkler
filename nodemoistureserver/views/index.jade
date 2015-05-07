@@ -85,10 +85,10 @@ block content
           
           div#inputTempKnobs(style="display: none; width: 100%; float: left;")
               div(class='demo' style='font-size: 35px; float: left')
-                pre.preKnob
+                br
                 input(id='knobTurnOnTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
               div(class='demo' style='font-size: 35px; float: left')
-                pre.preKnob
+                br
                 input(id='knobTurnOffTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
           
           div(style='width: 100%;')
@@ -106,7 +106,7 @@ block content
                   span(class='input-group-addon')
                     span(class="glyphicon glyphicon-time")
                 br         
-                button#btnAddSensor(style='margin-top: 20px; width: 100%') Add Sensor
+                button#btnAddSensor(class='btn' style='margin-top: 20px; width: 100%') Add Sensor
 
 block scriptology
   script(type="text/javascript").
