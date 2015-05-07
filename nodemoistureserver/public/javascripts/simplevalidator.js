@@ -39,16 +39,12 @@ function SimpleValidator(constraints, colors){
     for(var i = 0; i < this.ids.length; i++){
       inputId = this.ids[i];  // Get the id
       regEx = constraints[inputId]; // Get the regEX
-      inputVal = $('#' + inputId);
+      inputVal = $('#' + inputId).val();
       if(regEx.exec(inputVal) == null){
         return {
           "valid" : false,
           "input" : inputId
         };
-      }
-      // Check to see if there is any value
-      if(inputs[i].value == ""){
-        $(inputs[i]).css('background-color', 'crimson');
       }
     }
     return {
