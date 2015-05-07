@@ -52,13 +52,14 @@ block content
     // /Sensor Info
 
     h2 Sensor List
-    #sensorList
-      table
+    #sensorList(style='width: 30%')
+      table(class='table')
         thead
-          th ID
-          th Type
-          th PinID
-          th Delete?
+          tr(class='tr')
+            td(class='td') ID
+            td(class='td') Type
+            td(class='td') PinID
+            td(class='td') Delete?
         tbody
       // /Sensor List
 
