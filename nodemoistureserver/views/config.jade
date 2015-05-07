@@ -31,7 +31,7 @@ block content
     // /Sensor Config Info
 
     h2 Configuration List
-    #sensorList
+    #configList
       table
         thead
           th Type
@@ -57,9 +57,10 @@ block content
 
 block scriptology
   script(type="text/javascript").
-    // SensorList Data
-    var sensorListData = [];
+    // configList Data
+    var configListData = [];
     var debug = 1;
+    var validator;
     // DOM ready
     $(document).ready(function() {
 
@@ -67,14 +68,37 @@ block scriptology
       populateTable();
 
       // Sensor Address link click
-      $('#sensorList table tbody').on('click', 'td a.linkshowsensorconfig', showSensorInfo);
+      $('#configList table tbody').on('click', 'td a.linkshowsensorconfig', showSensorInfo);
 
       // Add Sensor button click
       $('#btnAddSensor').on('click', addSensor);
 
       // Delete Sensor
-      $('#sensorList table tbody').on('click', 'td a.linkdeletesensorconfig', deleteSensor);
+      $('#configList table tbody').on('click', 'td a.linkdeletesensorconfig', deleteSensor);
+      validator = setUpValidation();
+      // Setup Events and listeners
+      $.each($('input[type="text"]'), function(index, element){
+        $(element).on('input', validator.inputChange);
+        $(element).on('blur', validator.inputChange);
+     });
     });
+
+      function setUpValidation(){
+        var constraints = {
+          'inputConfigSensorType'   : /^[\w\d-]+$/i,
+          'inputConfigMoistureMax'  : /^0*[\d]{1,2}$|^0$|^100$/,
+          'inputConfigMoistureMin'  : /^0*[\d]{1,2}$|^0$|^100$/,
+          'inputConfigLightMax'     : /^0*[\d]{1,2}$|^0$|^100$/,
+          'inputConfigLightMin'     : /^0*[\d]{1,2}$|^0$|^100$/,
+          'inputConfigTempMax'      : /^0*([\d]{1,2}|0|100)\s?F°$/i,
+          'inputConfigTempMin'      : /^0*([\d]{1,2}|0|100)\s?F°$/i,
+        };
+        var colors = {
+          'valid' : "lime",
+          'invalid' : "IndianRed"
+        };
+        return new SimpleValidator(constraints, colors);
+      }
 
     // Functons
     function populateTable() {
@@ -83,8 +107,8 @@ block scriptology
 
       // jQuery AJAX call for JSON
       $.getJSON('/sensors/sensorconfig', function(data) {
-        // Stick our sensor data array into a sensorlist variable in the global object
-        sensorListData = data;
+        // Stick our sensor data array into a configList variable in the global object
+        configListData = data;
         // For each item in our JSON, add a table row and cells to the content string
         $.each(data, function() {
           tableContent += '<tr>';
@@ -94,7 +118,7 @@ block scriptology
         });
 
         // Inject the whole content string into our existing HTML table
-        $('#sensorList table tbody').html(tableContent);
+        $('#configList table tbody').html(tableContent);
       });
     };
 
@@ -108,11 +132,11 @@ block scriptology
       var thisSensorId = $(this).attr('rel');
 
       // Get Index of object based on id value
-      var arrayPosition = sensorListData.map(function(arrayItem) {
+      var arrayPosition = configListData.map(function(arrayItem) {
         return arrayItem.sensorType;
       }).indexOf(thisSensorId);
       // Get our Sensor Object
-      var thisSensorObject = sensorListData[arrayPosition];
+      var thisSensorObject = configListData[arrayPosition];
 
       //Populate Info Box
       $('#sensorConfigType').text(thisSensorObject.sensorType);
