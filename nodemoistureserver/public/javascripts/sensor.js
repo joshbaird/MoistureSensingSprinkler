@@ -117,7 +117,7 @@ function Sensor(sensor, config_){
 		this.tempHistory = val;
 	}
 	this.getCurrentTemp = function(){
-		if(this.tempHistory != undefined);
+		if(this.tempHistory != undefined)
 			return this.tempHistory[this.tempHistory.length - 1];
 		return {};
 	}
