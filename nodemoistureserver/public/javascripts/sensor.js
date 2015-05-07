@@ -108,24 +108,24 @@ function Sensor(sensor, config_){
 
 	this.getJSONData = function(){
 		return {
-            'sensorId': this.getSensorId(),
-            'sensorType': this.getSensorType(),
-            'pinId': this.getPinId(),
-            'turnOnMoisture': this.getTurnOnMoisture(),
-            'turnOffMoisture': this.getTurnOffMoisture(),
-            'turnOnLight': this.getTurnOnLight(),
-            'turnOffLight': this.getTurnOffLight(),
-            'turnOnTemp': this.getTurnOnTemp(),
-            'turnOffTemp': this.getTurnOffTemp(),
-            'turnOnTime': this.getTurnOnTime(),
-            'turnOffTime': this.getTurnOffTime()
+            'sensorId': this.sensorId,
+            'sensorType': this.sensorType,
+            'pinId': this.pinId,
+            'turnOnMoisture': this.turnOnMoisture,
+            'turnOffMoisture': this.turnOffMoisture,
+            'turnOnLight': this.turnOnLight,
+            'turnOffLight': this.turnOffLight,
+            'turnOnTemp': this.turnOnTemp,
+            'turnOffTemp': this.turnOffTemp,
+            'turnOnTime': this.turnOnTime,
+            'turnOffTime': this.turnOffTime
 		};
 	}
 }
 
 function convertToRaw(val, min, max){
-	return ((float(val)/100) * (float(max) - float(min)) + float(min));
+	return ((parseFloat(val)/100) * (parseFloat(max) - parseFloat(min)) + parseFloat(min));
 }
 function convertToDisplay(val, min, max){
-	return ((float(val) - float(min)) / (float(max) - float(min)) * 100);
+	return ((parseFloat(val) - parseFloat(min)) / (parseFloat(max) - parseFloat(min)) * 100);
 }
