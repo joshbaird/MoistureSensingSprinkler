@@ -1,6 +1,7 @@
 
 function Sensor(sensor, config_){
 	this.config = config_;
+	this._id = sensor._id;
 	this.sensorId = sensor.sensorId;
 	this.getSensorId = function(){
 		return this.sensorId;
