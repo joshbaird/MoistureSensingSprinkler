@@ -64,40 +64,49 @@ block content
 
     h2 Add Sensor
     #addSensor
-        fieldset
+        fieldset(style='border: none;')
+          div(class='genericOptionInput', id='first')
             input#inputSensorId(type='text', class='form-control', placeholder='SensorID')
             input#inputSensorType(type='text', class='form-control', placeholder='SensorType')
             input#inputPinId(type='text', class='form-control', placeholder='PinId')
-            br
-            input#inputTurnOnMoisture(type='text', class='form-control', placeholder='TurnOnMoisture')
-            input#inputTurnOffMoisture(type='text', class='form-control', placeholder='TurnOffMoisture')
-            br
-            input#inputTurnOnLight(type='text', class='form-control', placeholder='TurnOnLight')
-            input#inputTurnOffLight(type='text', class='form-control', placeholder='TurnOffLight')
-            br
-            input#inputTurnOnTemp(type='text', class='form-control', placeholder='TurnOnTemp')
-            input#inputTurnOffTemp(type='text', class='form-control', placeholder='TurnOffTemp')
-            br
-
-            div#inputTempKnobs(style="width: auto; display: none;")
-                div(class='demo' style='font-size: 35px;')
-                  pre.preKnob
-                  input(id='knobTurnOnTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
-                div(class='demo' style='font-size: 35px')
-                  pre.preKnob
-                  input(id='knobTurnOffTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
-            div(style="width: auto; display: inline-block;")
-                input(id='inputDateStart', type='text', class='date start form-control', placeholder='Start Date', style='float: left; position: relative; ')
-                div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
+          div(class='genericOptionInput', id='second')
+            
+            input#inputTurnOnMoisture(type='text', class='doubleInput form-control', placeholder='TurnOnMoisture')
+            input#inputTurnOffMoisture(type='text', class='doubleInput form-control', placeholder='TurnOffMoisture')
+          div(class='genericOptionInput', id='third')
+            
+            input#inputTurnOnLight(type='text', class='doubleInput form-control', placeholder='TurnOnLight')
+            input#inputTurnOffLight(type='text', class='doubleInput form-control', placeholder='TurnOffLight')
+          div(class='genericOptionInput', id='fourth')
+            
+            input#inputTurnOnTemp(type='text', class='doubleInput form-control', placeholder='TurnOnTemp')
+            input#inputTurnOffTemp(type='text', class='doubleInput form-control', placeholder='TurnOffTemp')
+            
+          
+          div#inputTempKnobs(style="display: none; width: 100%; float: left;")
+              div(class='demo' style='font-size: 35px; float: left')
+                pre.preKnob
+                input(id='knobTurnOnTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
+              div(class='demo' style='font-size: 35px; float: left')
+                pre.preKnob
+                input(id='knobTurnOffTemp' class='knob' data-angleOffset='-125' data-angleArc='250' data-fgColor='#66EE66' data-rotation='clockwise' value='35' style='font-size: 35px;')
+          
+          div(style='width: 100%;')
+            div(class='genericOptionInput' style="width: 20%; display: block;")
+                input(id='inputDateStart', type='text', class='date start form-control doubleInput', placeholder='Start Date', style='float: left; position: relative; ')
+                div(class='input-group clockpicker doubleInput', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
                   input(id='inputTimeStart', type='text', class='clockPickerInput form-control', placeholder='Start Time', style='position: relative; ')
                   span(class='input-group-addon')
                     span(class="glyphicon glyphicon-time")
-                input(id='inputDateEnd', type='text', class='date start form-control', placeholder='End Date', style='float: left; position: relative; ')
-                div(class='input-group clockpicker', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
+          div(style='width: 100%; display: inline-block;')
+            div(class='genericOptionInput' style="width: 20%; display: inline-block;")
+                input(id='inputDateEnd', type='text', class='date start form-control doubleInput', placeholder='End Date', style='float: left; position: relative; ')
+                div(class='input-group clockpicker doubleInput', data-placement='right', data-align='top', data-autoclose='true', style='float: left')
                   input(id='inputTimeEnd', type='text', class='clockPickerInput form-control', placeholder='End Time', style='position: relative; ')
                   span(class='input-group-addon')
                     span(class="glyphicon glyphicon-time")
-            button#btnAddSensor Add Sensor
+                br         
+                button#btnAddSensor(style='margin-top: 20px; width: 100%') Add Sensor
 
 block scriptology
   script(type="text/javascript").
@@ -151,7 +160,7 @@ block scriptology
       $('.clockPickerInput').clockpicker({
         autoclose: false,
         twelvehour: true,
-        placement: 'top',
+        placement: 'bottom',
         default: 'now',
         donetext: 'SET',
       });

@@ -56,3 +56,12 @@ fieldset {
 	border:0;
 	padding:0; margin:0;
 }
+
+.genericOptionInput{
+	width: 30% !important;
+}
+
+.doubleInput{
+	float: left;
+	width: 50% !important;
+}
