@@ -115,7 +115,7 @@ block scriptology
          // Set up some ui stuff
          setUpPickers(); // Sets up pickers for the ui
          validator = setUpValidation();  // Setup up validation objects
-         //populateTable();
+         populateTable();
 
          // Setup Events and listeners
          $('#sensorList table tbody').on('click', 'td a.linkshowsensor', showSensorInfo);
@@ -209,7 +209,7 @@ block scriptology
       event.preventDefault();
 
       // Test to see if the inputs are valid
-      if(!testInputs()){
+      if(!validator.testInputs()['valid']){
         alert('Please Correct Fields Highlighted in red');
         return;
       }
