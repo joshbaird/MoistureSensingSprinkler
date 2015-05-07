@@ -63,7 +63,7 @@ function Sensor(sensor, config_){
 		this.moistureHistory = val;
 	}
 	this.getCurrentMoisture = function(){
-		if(this.moistureHistory.length > 0)
+		if(this.moistureHistory != undefined)
 			return this.moistureHistory[this.moistureHistory.length - 1];
 		return {};
 	}
@@ -90,7 +90,7 @@ function Sensor(sensor, config_){
 		this.lightHistory = val;
 	}
 	this.getCurrentLight = function(){
-		if(this.lightHistory.length > 0)
+		if(this.lightHistory != undefined)
 			return this.lightHistory[this.lightHistory.length - 1];
 		return {};
 	}
@@ -117,7 +117,7 @@ function Sensor(sensor, config_){
 		this.tempHistory = val;
 	}
 	this.getCurrentTemp = function(){
-		if(this.tempHistory.length > 0);
+		if(this.tempHistory != undefined);
 			return this.tempHistory[this.tempHistory.length - 1];
 		return {};
 	}
