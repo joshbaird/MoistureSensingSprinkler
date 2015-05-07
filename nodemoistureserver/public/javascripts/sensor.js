@@ -62,6 +62,11 @@ function Sensor(sensor, config_){
 	this.setMoistureHistory = function(val){
 		this.moistureHistory = val;
 	}
+	this.getCurrentMoisture = function(){
+		if(this.moistureHistory.length > 0)
+			return this.moistureHistory[this.moistureHistory.length - 1];
+		return {};
+	}
 
 	this.turnOnLight = sensor.turnOnLight;
 	this.getTurnOnLight = function(){
@@ -84,6 +89,11 @@ function Sensor(sensor, config_){
 	this.setLightHistory = function(val){
 		this.lightHistory = val;
 	}
+	this.getCurrentLight = function(){
+		if(this.lightHistory.length > 0)
+			return this.lightHistory[this.lightHistory.length - 1];
+		return {};
+	}
 
 	this.turnOnTemp = sensor.turnOnTemp;
 	this.getTurnOnTemp = function(){
@@ -105,6 +115,11 @@ function Sensor(sensor, config_){
 	}
 	this.setTempHistory = function(val){
 		this.tempHistory = val;
+	}
+	this.getCurrentTemp = function(){
+		if(this.tempHistory.length > 0);
+			return this.tempHistory[this.tempHistory.length - 1];
+		return {};
 	}
 
 	this.getJSONData = function(){

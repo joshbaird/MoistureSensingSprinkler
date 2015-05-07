@@ -324,7 +324,7 @@ block scriptology
       $('#sensorInfoTurnOnMoisture').text(thisSensorObject.getTurnOnMoisture());
       $('#sensorInfoTurnOffMoisture').text(thisSensorObject.getTurnOffMoisture());
       if ("moistureHistory" in thisSensorObject){
-        $('#sensorInfoMoistureHistory').text(JSON.stringify(thisSensorObject.moistureHistory));
+        $('#sensorInfoMoistureHistory').text(JSON.stringify(thisSensorObject.getCurrentMoisture()));
       }
       else
       {
@@ -333,7 +333,7 @@ block scriptology
       $('#sensorInfoTurnOnLight').text(thisSensorObject.getTurnOnLight());
       $('#sensorInfoTurnOffLight').text(thisSensorObject.getTurnOffLight());
       if ("lightHistory" in thisSensorObject){
-        $('#sensorInfoLightHistory').text(JSON.stringify(thisSensorObject.lightHistory));
+        $('#sensorInfoLightHistory').text(JSON.stringify(thisSensorObject.getCurrentLight()));
       }
       else{
         $('#sensorInfoLightHistory').text("");
@@ -341,7 +341,7 @@ block scriptology
       $('#sensorInfoTurnOnTemp').text(thisSensorObject.getTurnOffLight());
       $('#sensorInfoTurnOffTemp').text(thisSensorObject.getTurnOffLight());
       if ("tempHistory" in thisSensorObject){
-        $('#sensorInfoTempHistory').text(JSON.stringify(thisSensorObject.tempHistory));
+        $('#sensorInfoTempHistory').text(JSON.stringify(thisSensorObject.getCurrentTemp()));
       }
       else{
         $('#sensorInfoTempHistory').text("");
