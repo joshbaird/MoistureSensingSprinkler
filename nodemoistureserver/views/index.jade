@@ -239,31 +239,19 @@ block scriptology
       // check errorCount is 0
       //turn on debug at top if you don't want to fill in all fields
       if (errorCount === 0 || debug) {
-        var newSensor = {
-            'sensorId': $('#addSensor fieldset input#inputSensorId').val(),
-            'sensorType': $('#addSensor fieldset input#inputSensorType').val(),
-            'pinId': $('#addSensor fieldset input#inputPinId').val(),
-
-            // add time on and off here
-            //'turnOnTime' : $('#addSensor fieldset input#inputPinId').val(),
-            //'turnOffTime' : $('#addSensor fieldset input#inputPinId').val(),
-
-            'turnOnMoisture': $('#addSensor fieldset input#inputTurnOnMoisture').val(),
-            'turnOffMoisture': $('#addSensor fieldset input#inputTurnOffMoisture').val(),
-
-            'turnOnLight': $('#addSensor fieldset input#inputTurnOnLight').val(),
-            'turnOffLight': $('#addSensor fieldset input#inputTurnOffLight').val(),
-
-            //adapted for Farenheit degrees/Celsius Degrees..harmless if not found on replace...no need for error checking
-            'turnOnTemp': $('#addSensor fieldset input#inputTurnOnTemp').val().replace(' F' + '\xB0', '').replace(' C' + '\xB0', ''),
-            'turnOffTemp': $('#addSensor fieldset input#inputTurnOffTemp').val().replace(' F' + '\xB0', '').replace(' C' + '\xB0', ''),
-
-            'turnOnTime': startEpoch,
-            'turnOffTime': endEpoch
-          }
-        var sensorObj = new Sensor(newSensor, config);
+        var sensorObj = new Sensor({}, config);
+        sensorObj.setSensorId($('#addSensor fieldset input#inputSensorId').val());
+        sensorObj.setSensorType($('#addSensor fieldset input#inputSensorType').val());
+        sensorObj.setPinId($('#addSensor fieldset input#inputPinId').val());
+        sensorObj.setTurnOnTime(startEpoch);
+        sensorObj.setTurnOffTime(endEpoch);
+        sensorObj.setTurnOnMoisture($('#addSensor fieldset input#inputTurnOnMoisture').val());
+        sensorObj.setTurnOffMoisture($('#addSensor fieldset input#inputTurnOffMoisture').val());
+        sensorObj.setTurnOnLight($('#addSensor fieldset input#inputTurnOnLight').val());
+        sensorObj.setTurnOffLight($('#addSensor fieldset input#inputTurnOffLight').val());
+        sensorObj.setTurnOnTemp($('#addSensor fieldset input#inputTurnOnTemp').val().replace(' F' + '\xB0', '').replace(' C' + '\xB0', ''));
+        sensorObj.setTurnOffTemp($('#addSensor fieldset input#inputTurnOffTemp').val().replace(' F' + '\xB0', '').replace(' C' + '\xB0', ''));     
         var sensorJSON = sensorObj.getJSONData();
-
         // Send the json data to mongodb
         $.ajax({
           type: 'POST',

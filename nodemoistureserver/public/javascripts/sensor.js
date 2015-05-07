@@ -105,6 +105,22 @@ function Sensor(sensor, config_){
 	this.setTempHistory = function(val){
 		this.tempHistory = val;
 	}
+
+	this.getJSONData = function(){
+		return {
+            'sensorId': this.getSensorId(),
+            'sensorType': this.getSensorType(),
+            'pinId': this.getPinId(),
+            'turnOnMoisture': this.getTurnOnMoisture(),
+            'turnOffMoisture': this.getTurnOffMoisture(),
+            'turnOnLight': this.getTurnOnLight(),
+            'turnOffLight': this.getTurnOffLight(),
+            'turnOnTemp': this.getTurnOnTemp(),
+            'turnOffTemp': this.getTurnOffTemp(),
+            'turnOnTime': this.getTurnOnTime(),
+            'turnOffTime': this.getTurnOffTime()
+		};
+	}
 }
 
 function convertToRaw(val, min, max){
