@@ -183,7 +183,7 @@ block scriptology
     function populateTable() {
       // Empty content string
       var tableContent = '';
-
+      sensorListData = [];
       // jQuery AJAX call for JSON
       $.getJSON('/sensors/sensorlist', function(data) {
         // Stick our sensor data array into a sensorlist variable in the global object
