@@ -13,7 +13,7 @@ sensorPinRunningFlags = {};
 # GET port settings and sensor data from REST server
 def getPortSettings(url):
 	r = requests.get(url);
-	return r.json;
+	return r.json();
 
 # Check to turn on relay for all sensors
 def checkSettings(port):
@@ -21,7 +21,7 @@ def checkSettings(port):
 			checkMoistureSettings(port, sensorPinRunningFlags[port["pinId"]]) and 
 		   	checkTempSettings(port) and 
 		   	checkLightSettings(port) and 
-		   	checkWeatherSettings(port);
+		   	checkWeatherSettings(port));
 
 # check to make sure time falls between on and off
 def checkTimeSettings(port):
@@ -35,7 +35,7 @@ def checkMoistureSettings(port, runningFlag):
 	print "moisture: ";
 	currentVal =  port["moistureHistory"][len(port["moistureHistory"]) - 1]["value"]
 	print currentVal;
-	return (runningFlag) ? int(port["turnOffMoisture"]) < int(currentVal) : int(port["turnOnMoisture"]) > int(currentVal);
+	return int(port["turnOffMoisture"]) < int(currentVal) if runningFlag else int(port["turnOnMoisture"]) > int(currentVal);
 
 # check to make sure temp falls between the on and off
 def checkTempSettings(port):
