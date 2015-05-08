@@ -348,7 +348,7 @@ block scriptology
       else{
         $('#sensorInfoLightHistory').text("");
       }
-      $('#sensorInfoTurnOnTemp').text(thisSensorObject.getTurnOffLight());
+      $('#sensorInfoTurnOnTemp').text(thisSensorObject.getTurnOnLight());
       $('#sensorInfoTurnOffTemp').text(thisSensorObject.getTurnOffLight());
       if ("tempHistory" in thisSensorObject){
         $('#sensorInfoTempHistory').text(JSON.stringify(thisSensorObject.getCurrentTemp()));
