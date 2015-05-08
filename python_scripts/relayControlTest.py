@@ -35,20 +35,20 @@ def checkMoistureSettings(port, runningFlag):
 	print "moisture: ";
 	currentVal =  port["moistureHistory"][len(port["moistureHistory"]) - 1]["value"]
 	print currentVal;
-	return int(port["turnOffMoisture"]) < int(currentVal) if runningFlag else int(port["turnOnMoisture"]) > int(currentVal);
+	return float(port["turnOffMoisture"]) < float(currentVal) if runningFlag else float(port["turnOnMoisture"]) > float(currentVal);
 
 # check to make sure temp falls between the on and off
 def checkTempSettings(port):
 	print "temp: ";
 	currentVal =  port["tempHistory"][len(port["tempHistory"]) - 1]["value"];
 	print currentVal;
-	return int(port["turnOnTemp"]) < int(currentVal) and int(currentVal) < int(port["turnOffTemp"]);
+	return float(port["turnOnTemp"]) < float(currentVal) and float(currentVal) < float(port["turnOffTemp"]);
 # check to make light falls between the on and off
 def checkLightSettings(port):
 	print "light: ";
 	currentVal =  port["lightHistory"][len(port["lightHistory"]) - 1]["value"];
 	print currentVal;
-	return int(port["turnOnLight"]) < int(currentVal) and int(currentVal) < int(port["turnOffLight"]) ;
+	return float(port["turnOnLight"]) < float(currentVal) and float(currentVal) < float(port["turnOffLight"]) ;
 
 # for now return true. will try and implement later.
 def checkWeatherSettings(port):
