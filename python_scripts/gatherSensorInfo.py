@@ -12,7 +12,7 @@ exitFlag = False;
 # Scan I2C Bus return list of address 0-127
 def getSensorAddresses():
 	response = requests.get('http://localhost:3000/sensors/sensorlist');
-	items =  response.json;
+	items =  response.json();
 	print items;
 	addresses = []
 	for item in items:
@@ -91,7 +91,7 @@ sensors = getSensorAddresses();
 maxindex = len(sensors);
 index = 0;
 while (~checkForExit()):
-	sleep(1);
+	sleep(5);
 	if(index >= maxindex):
 		sensors = getSensorAddresses();
 		maxindex = len(sensors);

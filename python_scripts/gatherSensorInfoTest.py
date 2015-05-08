@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-from chirp import Chirp
+#from chirp import Chirp
 import time
 from time import sleep
 import requests
@@ -13,7 +13,7 @@ exitFlag = False;
 # Scan I2C Bus return list of address 0-127
 def getSensorAddresses():
 	response = requests.get('http://localhost:3000/sensors/sensorlist');
-	items =  response.json;
+	items =  response.json();
 	print items;
 	addresses = []
 	for item in items:
@@ -30,7 +30,7 @@ def ReadAddressAndPOST(sensor):
 	#chirp = Chirp(1,int(addr,16));
 
 	# read moisture
-	currentValMoisture = sys.argv[0];#chirp.cap_sense();
+	currentValMoisture = sys.argv[1];#chirp.cap_sense();
 	print currentValMoisture;
 	if("moistureHistory" in sensor):
 		historyM = sensor["moistureHistory"];
@@ -43,7 +43,7 @@ def ReadAddressAndPOST(sensor):
 	print historyM;
 
 	#read light
-	currentValLight = sys.argv[1];#chirp.cap_sense();
+	currentValLight = sys.argv[2];#chirp.cap_sense();
 	print currentValLight;
 	if("lightHistory" in sensor):
 		historyL = sensor["lightHistory"];
@@ -54,7 +54,7 @@ def ReadAddressAndPOST(sensor):
 	print historyL;
 
 	#read temp
-	currentValTemp = sys.argv[2]; #chirp.cap_sense();
+	currentValTemp = sys.argv[3]; #chirp.cap_sense();
 	print currentValTemp;
 	if("tempHistory" in sensor):
 		historyT = sensor["tempHistory"];
@@ -92,7 +92,7 @@ sensors = getSensorAddresses();
 maxindex = len(sensors);
 index = 0;
 while (~checkForExit()):
-	sleep(1);
+	sleep(5);
 	if(index >= maxindex):
 		sensors = getSensorAddresses();
 		maxindex = len(sensors);
