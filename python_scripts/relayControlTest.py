@@ -17,7 +17,8 @@ def getPortSettings(url):
 
 # Check to turn on relay for all sensors
 def checkSettings(port):
-	return (checkTimeSettings(port) and 
+	return ("moistureHistory" in port and "tempHistory" in port and "lightHistory" in port and
+			checkTimeSettings(port) and 
 			checkMoistureSettings(port, sensorPinRunningFlags[port["pinId"]]) and 
 		   	checkTempSettings(port) and 
 		   	checkLightSettings(port) and 
