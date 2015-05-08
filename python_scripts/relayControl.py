@@ -17,34 +17,38 @@ def getPortSettings(url):
 
 # Check to turn on relay for all sensors
 def checkSettings(port):
-	return (checkTimeSettings(port) andcheckMoistureSettings(port, sensorPinRunningFlags[port["pinId"]]) and 
-		   	checkTempSettings(port, sensorPinRunningFlags[port["pinId"]]) and 
-		   	checkLightSettings(port, sensorPinRunningFlags[port["pinId"]]) and 
-		   	checkWeatherSettings(port, sensorPinRunningFlags[port["pinId"]]));
+	return (checkTimeSettings(port) and 
+			checkMoistureSettings(port, sensorPinRunningFlags[port["pinId"]]) and 
+		   	checkTempSettings(port) and 
+		   	checkLightSettings(port) and 
+		   	checkWeatherSettings(port);
 
+# check to make sure time falls between on and off
 def checkTimeSettings(port):
 	print "time now: " + str(time.time());
 	print "time on:  " + str(float(port["turnOnTime"])/1000);
 	print "time off: " + str(float(port["turnOffTime"])/1000);
 	return float(port["turnOnTime"])/1000 < time.time() and float(port["turnOffTime"])/1000 > time.time();
 
-def checkMoistureSettings(port, checkforOn):
+# Moisture turns it on or off based on if its on or off
+def checkMoistureSettings(port, runningFlag):
 	print "moisture: ";
 	currentVal =  port["moistureHistory"][len(port["moistureHistory"]) - 1]["value"]
 	print currentVal;
-	return (checkforOn) ? int(port["turnOnMoisture"]) > int(currentVal) : int(port["turnOffMoisture"]) > int(currentVal);
+	return (runningFlag) ? int(port["turnOffMoisture"]) < int(currentVal) : int(port["turnOnMoisture"]) > int(currentVal);
 
-def checkTempSettings(port, checkforOn):
+# check to make sure temp falls between the on and off
+def checkTempSettings(port):
 	print "temp: ";
 	currentVal =  port["tempHistory"][len(port["tempHistory"]) - 1]["value"];
 	print currentVal;
-	return (checkforOn) ?  int(port["turnOnTemp"]) > int(currentVal) : int(port["turnOffTemp"]) > int(currentVal);
-
-def checkLightSettings(port, checkforOn):
+	return int(port["turnOnTemp"]) < int(currentVal) and int(currentVal) < int(port["turnOffTemp"]);
+# check to make light falls between the on and off
+def checkLightSettings(port):
 	print "light: ";
 	currentVal =  port["lightHistory"][len(port["lightHistory"]) - 1]["value"];
 	print currentVal;
-	return (checkforOn) ?  int(port["turnOnLight"]) > int(currentVal) : int(port["turnOffLight"]) > int(currentVal);
+	return int(port["turnOnLight"]) < int(currentVal) and int(currentVal) < int(port["turnOffLight"]) ;
 
 # for now return true. will try and implement later.
 def checkWeatherSettings(port):
@@ -87,4 +91,3 @@ while (~checkForExit()):
 		else:
 			turnOffRelay(value);
 	delay(5);
-	checkForExit();
