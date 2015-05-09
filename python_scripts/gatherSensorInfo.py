@@ -42,7 +42,7 @@ def ReadAddressAndPOST(sensor):
 	print historyM;
 
 	#read light
-	currentValLight = chirp.cap_sense();
+	currentValLight = chirp.light();
 	print currentValLight;
 	if("lightHistory" in sensor):
 		historyL = sensor["lightHistory"];
@@ -53,7 +53,7 @@ def ReadAddressAndPOST(sensor):
 	print historyL;
 
 	#read temp
-	currentValTemp = chirp.cap_sense();
+	currentValTemp = chirp.temp();
 	print currentValTemp;
 	if("tempHistory" in sensor):
 		historyT = sensor["tempHistory"];
